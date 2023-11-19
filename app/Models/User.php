@@ -18,7 +18,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'middle_name',
+        'last_name',
         'email',
         'password',
     ];
@@ -42,4 +44,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getFullName()
+    {
+        $fullName = $this->first_name;
+
+        if (!empty($this->middle_name)) {
+            // Extract the first character of the middle name
+            $middleInitial = substr($this->middle_name, 0, 1);
+            $fullName .= ' ' . $middleInitial . '.';
+        }
+
+        $fullName .= ' ' . $this->last_name;
+
+        return $fullName;
+    }
 }
