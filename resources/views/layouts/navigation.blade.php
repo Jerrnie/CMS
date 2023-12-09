@@ -1,12 +1,12 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between h-18">
             <div class="flex">
                 <!-- Logo -->
-                <div class="flex justify-center items-center h-20 w-28 bg-gray-200">
+                <div class="flex justify-center items-center h-full w-60">
                     <a href="{{ route('home') }}">
-                        <x-application-logo-two class="h-full w-auto max-h-full max-w-full" />
+                        <img src="{{ asset('images/ZFF logo with text.png') }}" alt="ZFF Logo" >
                     </a>
                 </div>
 

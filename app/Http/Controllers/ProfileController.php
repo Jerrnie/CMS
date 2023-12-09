@@ -16,8 +16,33 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+
+         // Define the options for the sex select input
+         $sexOptions = [
+             'male' => 'Male',
+             'female' => 'Female',
+             'other' => 'Other',
+         ];
+
+         $idTypeOptions = [
+             'passport' => 'Passport',
+             'drivers_license' => 'Driver\'s License',
+             'other' => 'Other',
+         ];
+
+         $consultingCategoryOptions = [
+            'employee_organization' => 'Employee of Firm/Organization',
+            'employee_private_practice' => 'Employee of Firm/Organization but Having the Right of Private Practice',
+            'self_employed' => 'Self-Employed',
+            'partners_principal' => 'Partners/Principal of a Firm',
+            'others' => 'Others',
+        ];
+
         return view('profile.edit', [
             'user' => $request->user(),
+            'sexOptions' => $sexOptions,
+            'idTypeOptions' => $idTypeOptions,
+            'consultingCategoryOptions' => $consultingCategoryOptions,
         ]);
     }
 
@@ -50,7 +75,7 @@ class ProfileController extends Controller
 
         Auth::logout();
 
-        $user->delete();
+        // $user->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

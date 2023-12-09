@@ -1,7 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BasicInfoController;
+
+use App\Http\Controllers\ConsultantInfoController;
+use App\Http\Controllers\ProfileControllerBasicInformation;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +34,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::patch('/profile-basic-info', [BasicInfoController::class, 'update'])->name('profile-basic-info.update');
+    Route::patch('/profile-consultant-info', [ConsultantInfoController::class, 'update'])->name('profile-consultant-info.update');
+
+
 });
 
 require __DIR__.'/auth.php';

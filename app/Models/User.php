@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -58,5 +59,20 @@ class User extends Authenticatable
         $fullName .= ' ' . $this->last_name;
 
         return $fullName;
+    }
+
+    public function basicInformation(): HasOne
+    {
+        return $this->hasOne(BasicInformation::class);
+    }
+
+    public function consultantInformation()
+    {
+        return $this->hasOne(ConsultantInfo::class);
+    }
+
+    public function expertiseFields()
+    {
+        return $this->belongsToMany(ExpertiseField::class);
     }
 }
