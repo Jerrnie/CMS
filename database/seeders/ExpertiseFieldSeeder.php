@@ -22,7 +22,9 @@ class ExpertiseFieldSeeder extends Seeder
             'Art and Design',
             'Law and Legal Services',
             'Social Sciences',
-            'Agriculture and Environmental Sciences'
+            'Agriculture and Environmental Sciences',
+            'Other',
+
             // Add more as needed
         ];
 

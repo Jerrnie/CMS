@@ -71,8 +71,8 @@ class User extends Authenticatable
         return $this->hasOne(ConsultantInfo::class);
     }
 
-    public function expertiseFields()
+    public function expertiseList()
     {
-        return $this->belongsToMany(ExpertiseField::class);
+        return $this->hasMany(Expertise::class);
     }
 }

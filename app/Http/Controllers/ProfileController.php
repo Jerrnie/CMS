@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Models\ExpertiseField;
+use APP\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -38,11 +40,16 @@ class ProfileController extends Controller
             'others' => 'Others',
         ];
 
+        $expertiseFields = ExpertiseField::pluck('name', 'id');
+        $expertiseRows = $request->user()->expertiseList()->get();
+
         return view('profile.edit', [
             'user' => $request->user(),
             'sexOptions' => $sexOptions,
             'idTypeOptions' => $idTypeOptions,
             'consultingCategoryOptions' => $consultingCategoryOptions,
+            'expertiseFields' => $expertiseFields,
+            'expertiseRows' => $expertiseRows,
         ]);
     }
 

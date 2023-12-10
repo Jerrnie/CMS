@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BasicInfoController;
 
 use App\Http\Controllers\ConsultantInfoController;
+use App\Http\Controllers\ExpertiseController;
 use App\Http\Controllers\ProfileControllerBasicInformation;
 
 /*
@@ -37,6 +38,7 @@ Route::middleware('auth')->group(function () {
 
     Route::patch('/profile-basic-info', [BasicInfoController::class, 'update'])->name('profile-basic-info.update');
     Route::patch('/profile-consultant-info', [ConsultantInfoController::class, 'update'])->name('profile-consultant-info.update');
+    Route::patch('/profile-expertise-info', [ExpertiseController::class, 'update'])->name('expertise.update');
 
 
 });

@@ -33,16 +33,19 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class=" max-w-3xl">
+                <div class=" max-w-6xl">
                     <ul class="flex border-b">
                         <li class="mr-6">
                             <a href="#profileInfo" class="tab-button text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-500 pb-2">Profile / Password</a>
                         </li>
                         <li class="mr-6">
-                            <a href="#basicInfo" class="tab-button text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-500 pb-2">Basic Information</a>
+                            <a href="#basicInfo" class="tab-button text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-500 pb-2">Basic Info</a>
                         </li>
-                        <li>
+                        <li class="mr-6">
                             <a href="#consultantInfo" class="tab-button text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-500 pb-2">Consultant Info</a>
+                        </li>
+                        <li class="mr-6">
+                            <a href="#expertise" class="tab-button text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-500 pb-2">Expertise</a>
                         </li>
 
                     </ul>
@@ -55,6 +58,9 @@
                         </div>
                         <div id="consultantInfo" class="tab-content hidden">
                             @include('profile.partials.update-consultant-information')
+                        </div>
+                        <div id="expertise" class="tab-content hidden">
+                            @include('profile.partials.update-expertise-information')
                         </div>
                     </div>
                 </div>

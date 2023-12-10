@@ -79,7 +79,6 @@ class BasicInfoController extends Controller
 
         return Redirect::route('profile.edit')->with('status', 'basicInfo-updated')->withFragment('basicInfo');
 
-
     }
 
     /**

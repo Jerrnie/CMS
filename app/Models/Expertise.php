@@ -12,6 +12,7 @@ class Expertise extends Model
     protected $fillable = [
         'user_id',
         'expertise_field_id',
+        'years_of_experience',
         'detail',
         'is_primary',
     ];
