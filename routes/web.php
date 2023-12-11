@@ -37,7 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::patch('/profile-basic-info', [BasicInfoController::class, 'update'])->name('profile-basic-info.update');
+
     Route::patch('/profile-consultant-info', [ConsultantInfoController::class, 'update'])->name('profile-consultant-info.update');
+
     Route::patch('/profile-expertise-info', [ExpertiseController::class, 'update'])->name('expertise.update');
 
 

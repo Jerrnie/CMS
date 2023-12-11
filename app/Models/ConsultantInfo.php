@@ -25,6 +25,7 @@ class ConsultantInfo extends Model
         'employment_end_date',
         'director_or_above',
         'government_employee',
+        'gov_employment_end_date',
         'agency_name',
         'country',
         'consulting_assignment_at_zff',

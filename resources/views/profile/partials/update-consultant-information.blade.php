@@ -131,7 +131,7 @@
 <div class="mt-4 border p-2" x-data="{ showGovernmentEmployee: {{ $user->consultantInformation && $user->consultantInformation->government_employee === 'yes' ? 'true' : 'false' }} }">
     <!-- Have you been or are you currently a government employee? -->
     <x-input-label class="required" for="government_employee" :value="__('Have you been or are you currently a government employee?')" />
-    <div class="mt-2 space-x-4" x-data="{ showGovernmentEmployee: {{ $user->consultantInformation && $user->consultantInformation->government_employee === 'yes' ? 'true' : 'false' }} }">
+    <div class="mt-2 space-x-4">
         <input type="radio" id="yes_government_employee" name="government_employee" value="yes" @click="showGovernmentEmployee = true" {{ $user->consultantInformation && $user->consultantInformation->government_employee === 'yes' ? 'checked' : '' }} required>
         <label for="yes_government_employee">Yes</label>
         <input type="radio" id="no_government_employee" name="government_employee" value="no" @click="showGovernmentEmployee = false" {{ !$user->consultantInformation || $user->consultantInformation->government_employee === 'no' ? 'checked' : '' }} required>
@@ -155,7 +155,10 @@
 
         <div class=" pb-4 mt-4">
             <x-input-label class="required" for="gov_employment_end_date" :value="__('Employment End Date')" />
-            <x-text-input id="gov_employment_end_date" class="block mt-1 w-full" type="date" name="employment_end_date" :value="old('employment_end_date', optional($user->consultantInformation)->employment_end_date)" x-bind:required="showGovernmentEmployee" />
+
+            <x-text-input id="gov_employment_end_date" class="block mt-1 w-full" type="date" name="gov_employment_end_date" :value="old('gov_employment_end_date', optional($user->consultantInformation)->gov_employment_end_date)" x-bind:required="showGovernmentEmployee" />
+
+
             <x-input-error :messages="$errors->get('gov_employment_end_date')" class="mt-2" />
         </div>
     </div>
@@ -193,10 +196,6 @@
 </div>
 
 
-
-
-
-
         <!-- Save Button -->
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
@@ -209,6 +208,15 @@
                     x-init="setTimeout(() => show = false, 2000)"
                     class="text-sm text-green-600"
                 >{{ __('Saved.') }}</p>
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: '{{ session('updateSuccess') }}',
+                        text: 'Consultant Information Updated',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                </script>
             @endif
         </div>
     </form>
@@ -226,21 +234,21 @@
         }));
     });
 
-    // Get the value of the date input field
-const employmentEndDateInput = document.getElementById('employment_end_date');
-const employmentEndDateValue = employmentEndDateInput.value;
+//     // Get the value of the date input field
+// const employmentEndDateInput = document.getElementById('employment_end_date');
+// const employmentEndDateValue = employmentEndDateInput.value;
 
-// Check if a date is entered and format it
-if (employmentEndDateValue) {
-    // Create a Date object from the input value
-    const date = new Date(employmentEndDateValue);
+// // Check if a date is entered and format it
+// if (employmentEndDateValue) {
+//     // Create a Date object from the input value
+//     const date = new Date(employmentEndDateValue);
 
-    // Format the date to YYYY-MM-DD (or any other desired format)
-    const formattedDate = date.toISOString().split('T')[0];
+//     // Format the date to YYYY-MM-DD (or any other desired format)
+//     const formattedDate = date.toISOString().split('T')[0];
 
-    // Set the formatted date back to the input field
-    employmentEndDateInput.value = formattedDate;
-}
+//     // Set the formatted date back to the input field
+//     employmentEndDateInput.value = formattedDate;
+// }
 
 </script>
 

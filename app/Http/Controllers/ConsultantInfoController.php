@@ -14,14 +14,34 @@ class ConsultantInfoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProfileConsultantinfoUpdateRequest $request, ConsultantInfo $consultantInformation): RedirectResponse
+    public function update(Request $request, ConsultantInfo $consultantInformation): RedirectResponse
     {
+
+
+            $employment_end_date = $request->input('employment_end_date');
+            if ($employment_end_date) {
+                $parsedDate = \DateTime::createFromFormat('m/d/Y', $employment_end_date);
+                if ($parsedDate !== false) {
+                    $employment_end_date = $parsedDate->format('Y-m-d');
+                } else {
+                    // Handle invalid date input or display an error message
+                }
+            }
+            $gov_employment_end_date = $request->input('gov_employment_end_date');
+            if ($gov_employment_end_date) {
+                $parsedDate = \DateTime::createFromFormat('m/d/Y', $gov_employment_end_date);
+                if ($parsedDate !== false) {
+                    $gov_employment_end_date = $parsedDate->format('Y-m-d');
+                } else {
+                    // Handle invalid date input or display an error message
+                }
+            }
 
         $user = Auth::user();
 
         $consultantInfo = $user->consultantInformation ?? new ConsultantInfo();
 
-        $consultantInfo->fill($request->validated());
+        $consultantInfo->fill($request->all());
 
         $user->consultantInformation()->save($consultantInfo);
 

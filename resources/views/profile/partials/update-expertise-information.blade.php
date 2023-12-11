@@ -1,15 +1,22 @@
 <section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Fields of Specialization') }}
-        </h2>
-
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __("Provide at least one expertise.") }}
-        </p>
-    </header>
-
     <form x-data="expertiseList()" x-ref="expertiseForm" @submit.prevent="validateForm" method="post" action="{{ route('profile-basic-info.update') }}" class="mt-6 space-y-6">
+    <div class="flex justify-between items-center">
+        <header>
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('Fields of Specialization') }}
+            </h2>
+
+            <p class="mt-1 text-sm text-gray-600">
+                {{ __("Provide at least one expertise.") }}
+            </p>
+        </header>
+
+        <div class="mt-4">
+            <button @click="addRow()" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add More Expertise</button>
+        </div>
+    </div>
+
+
             {{-- <form method="post" action="#" class="mt-6 space-y-6"> --}}
     <div role="alert" x-show="formData.errors.length > 0">
         <div class="bg-orange-500 text-white font-bold rounded-t px-4 py-2">
@@ -82,9 +89,7 @@
                     >{{ __('Saved.') }}</p>
                 @endif
 
-                <div class="mt-4">
-                    <button @click="addRow()" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add More Expertise</button>
-                </div>
+
             </div>
 
 
@@ -152,9 +157,13 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data.message); // Log response
-                        console.log(data.asd); // Log response
-                        // Optionally, handle success message or UI updates here
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Expertise Information Updated',
+                            text: 'Expertise Information Updated',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     })
                     .catch(error => {
                         console.error('Error:', error);
