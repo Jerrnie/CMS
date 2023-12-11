@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Expertise::class);
     }
+
+    public function documentList()
+    {
+        return $this->hasMany(SupportingDocument::class);
+    }
 }

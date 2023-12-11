@@ -88,9 +88,9 @@
     <!-- Have you ever been an ZFF staff? -->
     <x-input-label class="required" for="zff_staff" :value="__('Have you ever been an ZFF staff?')" />
     <div class="mt-2 space-x-4">
-        <input type="radio" id="yes_zff_staff" name="zff_staff" value="yes" @click="showZFFStaff = true" {{ $user->consultantInformation && $user->consultantInformation->zff_staff ? 'checked' : '' }} required>
+        <input type="radio" id="yes_zff_staff" name="zff_staff" value="yes" @click="showZFFStaff = true" {{ $user->consultantInformation && $user->consultantInformation->zff_staff === 'yes' ? 'checked' : '' }} required>
         <label for="yes_zff_staff">Yes</label>
-        <input type="radio" id="no_zff_staff" name="zff_staff" value="no" @click="showZFFStaff = false" {{ !$user->consultantInformation || !$user->consultantInformation->zff_staff ? 'checked' : '' }} required>
+        <input type="radio" id="no_zff_staff" name="zff_staff" value="no" @click="showZFFStaff = false" {{ $user->consultantInformation && $user->consultantInformation->zff_staff === 'no' ? 'checked' : '' }} required>
         <label for="no_zff_staff">No</label>
     </div>
 
@@ -168,13 +168,12 @@
 <div class="p-2">
     <x-input-label class="required" for="consulting_assignment_at_zff" :value="__('Have you ever participated in a consulting assignment with ZFF?')" />
     <div class="mt-2 space-x-4">
-        <input type="radio" id="consulting_assignment_zff_yes" name="consulting_assignment_at_zff" value="yes" @click="showConsultingAssignment = true" {{ $user->consultantInformation && $user->consultantInformation->consulting_assignment_at_zff ? 'checked' : '' }} required>
+        <input type="radio" id="consulting_assignment_zff_yes" name="consulting_assignment_at_zff" value="yes" @click="showConsultingAssignment = true" {{ $user->consultantInformation && $user->consultantInformation->consulting_assignment_at_zff === 'yes' ? 'checked' : '' }} required>
         <label for="consulting_assignment_zff_yes">Yes</label>
-        <input type="radio" id="consulting_assignment_zff_no" name="consulting_assignment_at_zff" value="no" @click="showConsultingAssignment = false" {{ !$user->consultantInformation || !$user->consultantInformation->consulting_assignment_at_zff ? 'checked' : '' }} required>
+        <input type="radio" id="consulting_assignment_zff_no" name="consulting_assignment_at_zff" value="no" @click="showConsultingAssignment = false" {{ $user->consultantInformation && $user->consultantInformation->consulting_assignment_at_zff === 'no' ? 'checked' : '' }} required>
         <label for="consulting_assignment_zff_no">No</label>
     </div>
 </div>
-
 <div class="p-2 border" x-data="{ showDetails: {{ $user->consultantInformation && $user->consultantInformation->found_guilty === 'yes' ? 'true' : 'false' }}, guiltyDetails: '{{ $user->consultantInformation ? $user->consultantInformation->guiltyDetails : '' }}' }">
     <!-- Found guilty or convicted -->
     <label class="block">
@@ -211,8 +210,7 @@
                 <script>
                     Swal.fire({
                         icon: 'success',
-                        title: '{{ session('updateSuccess') }}',
-                        text: 'Consultant Information Updated',
+                        title: 'Consultant Information Updated',
                         showConfirmButton: false,
                         timer: 1500
                     });

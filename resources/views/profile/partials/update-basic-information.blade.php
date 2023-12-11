@@ -78,8 +78,7 @@
             <script>
                 Swal.fire({
                     icon: 'success',
-                    title: '{{ session('updateSuccess') }}',
-                    text: 'Basic Information Updated',
+                    title: 'Basic Information Updated',
                     showConfirmButton: false,
                     timer: 1500
                 });

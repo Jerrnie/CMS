@@ -75,7 +75,18 @@
                     x-init="setTimeout(() => show = false, 2000)"
                     class="text-sm text-green-600"
                 >{{ __('Saved.') }}</p>
+
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Profile Information Updated',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                </script>
             @endif
+
+
         </div>
     </form>
 </section>

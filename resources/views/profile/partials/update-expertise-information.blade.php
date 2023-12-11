@@ -87,6 +87,7 @@
                         x-init="setTimeout(() => show = false, 4000)"
                         class="text-sm text-green-600"
                     >{{ __('Saved.') }}</p>
+
                 @endif
 
 
@@ -160,7 +161,6 @@
                         Swal.fire({
                             icon: 'success',
                             title: 'Expertise Information Updated',
-                            text: 'Expertise Information Updated',
                             showConfirmButton: false,
                             timer: 1500
                         });

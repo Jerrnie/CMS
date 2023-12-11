@@ -7,6 +7,7 @@ use App\Http\Controllers\BasicInfoController;
 use App\Http\Controllers\ConsultantInfoController;
 use App\Http\Controllers\ExpertiseController;
 use App\Http\Controllers\ProfileControllerBasicInformation;
+use App\Http\Controllers\SupportingDocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,11 @@ Route::middleware('auth')->group(function () {
 
     Route::patch('/profile-expertise-info', [ExpertiseController::class, 'update'])->name('expertise.update');
 
+    Route::post('/profile-attachement-info', [SupportingDocumentController::class, 'store'])->name('profile-attachement-info.store');
+
+    Route::get('/download-attachment/{attachment_id}', [SupportingDocumentController::class, 'downloadAttachment'])->name('attachment.download');
+
+    Route::delete('/delete-attachment/{attachment_id}', [SupportingDocumentController::class, 'deleteAttachment'])->name('attachment.delete');
 
 });
 

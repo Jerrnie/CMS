@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use APP\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\ExpertiseField;
-use APP\Models\User;
+use App\Models\DocumentCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -43,6 +44,9 @@ class ProfileController extends Controller
         $expertiseFields = ExpertiseField::pluck('name', 'id');
         $expertiseRows = $request->user()->expertiseList()->get();
 
+        $documentCategories = DocumentCategory::pluck('name', 'id');
+        $documentRows = $request->user()->documentList()->with('category')->get();
+
         return view('profile.edit', [
             'user' => $request->user(),
             'sexOptions' => $sexOptions,
@@ -50,6 +54,8 @@ class ProfileController extends Controller
             'consultingCategoryOptions' => $consultingCategoryOptions,
             'expertiseFields' => $expertiseFields,
             'expertiseRows' => $expertiseRows,
+            'documentCategories' => $documentCategories,
+            'documentRows' => $documentRows,
         ]);
     }
 
