@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\ConfirmablePasswordController;
-use App\Http\Controllers\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\Auth\EmailVerificationPromptController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\PasswordController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\AdminAuthenticationController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\ConfirmablePasswordController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -34,6 +36,12 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
+
+    Route::get('admin/login', [AdminAuthenticationController::class, 'create'])
+                ->name('admin.login');
+
+    Route::post('admin/login', [AdminAuthenticationController::class, 'store'])
+                ->name('admin.login.submit');
 });
 
 Route::middleware('auth')->group(function () {
@@ -57,4 +65,23 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+});
+
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    Route::post('admin/logout', [AdminAuthenticationController::class, 'destroy'])
+    ->name('admin-logout');
+
+    Route::get('admin/forms', function () {
+        return view('admin.forms');
+    })->name('admin.forms');
+
+    Route::get('admin/tables', function () {
+        return view('admin.tables');
+    })->name('admin.tables');
+
+    Route::get('admin/ui', function () {
+        return view('admin.ui-elements');
+    })->name('admin.ui');
 });

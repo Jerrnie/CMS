@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ExpertiseFieldSeeder::class,
             DocumentCategoriesSeeder::class,
+            RoleSeeder::class,
+            AdminSeeder::class,
         ]);
 
     }

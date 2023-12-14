@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <title>
 
             @if (isset($headerName))
@@ -24,6 +24,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
+            @auth
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -34,6 +35,11 @@
                     </div>
                 </header>
             @endif
+        @endauth
+
+        @guest
+            @include('layouts.guest-navigation')
+        @endguest
 
             <!-- Page Content -->
             <main>
@@ -41,4 +47,21 @@
             </main>
         </div>
     </body>
+
+    @guest
+    <script>
+
+        window.onload = function() {
+    if (window.location.hash === '#logoutSuccess') {
+        Swal.fire({
+                        icon: 'success',
+                        title: 'Logout Success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+    }
+}
+    </script>
+    @endguest
+
 </html>

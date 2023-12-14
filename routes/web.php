@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BasicInfoController;
 
-use App\Http\Controllers\ConsultantInfoController;
 use App\Http\Controllers\ExpertiseController;
-use App\Http\Controllers\ProfileControllerBasicInformation;
+use App\Http\Controllers\OpportunityController;
+use App\Http\Controllers\ConsultantInfoController;
 use App\Http\Controllers\SupportingDocumentController;
+use App\Http\Controllers\ProfileControllerBasicInformation;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,14 @@ use App\Http\Controllers\SupportingDocumentController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.home');
 });
+
+Route::get('/about', function () {
+    return view('home.about');
+})->name('about');
+
+Route::get('/opportunities/all', [OpportunityController::class, 'index'])->name('opportunities.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -30,7 +37,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/home', function () {
     return view('home.home');
-})->middleware(['auth', 'verified'])->name('home');
+})->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

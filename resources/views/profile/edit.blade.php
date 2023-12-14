@@ -16,7 +16,6 @@
             color: red;
         }
     </style>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- <div class="mt-12 max-w-6xl mx-auto sm:px-6 lg:px-8 space-y-6 flex py-4  px-24 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
         <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
