@@ -12,7 +12,10 @@
 
     <div class="py-12 -mt-12">
         <div class=" w-3/3">
-            @include('home.partials.banner-final')
+            <x-banner>
+                <x-slot name="title">Opportunities</x-slot>
+                <x-slot name="subtitle">Find projects that's fitted your skills</x-slot>
+            </x-banner>
         </div>
     </div>
 
