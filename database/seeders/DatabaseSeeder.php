@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             DocumentCategoriesSeeder::class,
             RoleSeeder::class,
             AdminSeeder::class,
+            SettingsTableSeeder::class,
         ]);
 
     }

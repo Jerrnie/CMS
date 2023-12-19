@@ -12,7 +12,7 @@
 
     <div class="py-12 -mt-12">
         <div class=" w-3/3">
-            @include('home.partials.banner')
+            @include('home.partials.banner-final')
         </div>
     </div>
 

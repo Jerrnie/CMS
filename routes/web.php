@@ -23,7 +23,7 @@ use App\Http\Controllers\ProfileControllerBasicInformation;
 
 Route::get('/', function () {
     return view('home.home');
-});
+})->name('home');
 
 Route::get('/about', function () {
     return view('home.about');

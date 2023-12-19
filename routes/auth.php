@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\SettingController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -72,6 +73,14 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::post('admin/logout', [AdminAuthenticationController::class, 'destroy'])
     ->name('admin-logout');
+
+    Route::get('admin/settings', [AdminDashboardController::class, 'settings'])->name('admin.settings');
+
+    Route::post('admin/settings', [SettingController::class, 'updateSettings'])->name('admin.settings.update');
+
+
+
+
 
     Route::get('admin/forms', function () {
         return view('admin.forms');

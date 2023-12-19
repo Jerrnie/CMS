@@ -28,10 +28,11 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-
-
         <div class="flex items-center justify-end mt-4">
-
+            <!-- User Login Link -->
+            <a href="{{ route('login') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
+                {{ __('User Login') }}
+            </a>
 
             <x-primary-button class="ms-3">
                 {{ __('Admin Log in') }} <!-- Changed from Log in to Admin Log in -->

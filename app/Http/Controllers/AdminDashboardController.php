@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller
@@ -60,5 +61,22 @@ class AdminDashboardController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Show the form for settings
+     */
+    public function settings()
+    {
+        // $setting = Setting::first();
+        return view('admin.settings');
+    }
+
+    /**
+     * Update the settings
+     */
+    public function updateSettings(Request $request)
+    {
+
     }
 }

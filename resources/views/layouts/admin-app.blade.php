@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="icon" href="{{ asset($setting->logo) }}" >
         {{-- <link rel="canonical" href="{{ $page->getUrl() }}"> --}}
 
         <title>
