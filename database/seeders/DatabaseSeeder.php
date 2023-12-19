@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             AdminSeeder::class,
             SettingsTableSeeder::class,
+            UnitSeeder::class,
+            BudgetCodesSeed::class,
 
         ]);
 

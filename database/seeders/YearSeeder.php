@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Models\Year;
 use Illuminate\Database\Seeder;
 
 class YearSeeder extends Seeder
@@ -14,7 +14,7 @@ class YearSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['name' => '2023']);
-        Role::create(['name' => '2024']);
+        Year::create(['name' => '2023']);
+        Year::create(['name' => '2024']);
     }
 }

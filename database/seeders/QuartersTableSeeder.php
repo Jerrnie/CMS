@@ -15,15 +15,19 @@ class QuartersTableSeeder extends Seeder
         $quarters = [
             [
                 'name' => 'Quarter 1',
+                'short_name' => 'Q1',
             ],
             [
                 'name' => 'Quarter 2',
+                'short_name' => 'Q2',
             ],
             [
                 'name' => 'Quarter 3',
+                'short_name' => 'Q3',
             ],
             [
                 'name' => 'Quarter 4',
+                'short_name' => 'Q4',
             ],
         ];
 
