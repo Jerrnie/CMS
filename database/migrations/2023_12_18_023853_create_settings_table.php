@@ -26,6 +26,8 @@ return new class extends Migration
             //about us
             $table->string('aboutUsBanner')->nullable();
             //opportunities Banner
+            $table->unsignedBigInteger('year_id')->nullable();
+            $table->foreign('year_id')->references('id')->on('years');
             $table->timestamps();
         });
     }

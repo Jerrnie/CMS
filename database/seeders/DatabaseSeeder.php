@@ -21,10 +21,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             ExpertiseFieldSeeder::class,
+            YearSeeder::class,
+            QuartersTableSeeder::class,
             DocumentCategoriesSeeder::class,
             RoleSeeder::class,
             AdminSeeder::class,
             SettingsTableSeeder::class,
+
         ]);
 
     }
