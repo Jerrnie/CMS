@@ -1,7 +1,7 @@
 @props([])
 
 @php
-    if (request()->routeIs('home')||request()->routeIs('/')){
+    if (request()->routeIs('home')||request()->routeIs('/')||request()->routeIs('admin.dashboard')){
         $banner = $setting->HomePageBanner;
     }
     if (request()->routeIs('opportunities.index')) {

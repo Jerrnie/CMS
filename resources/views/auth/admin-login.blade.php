@@ -6,6 +6,8 @@
         {{ __('Admin Login') }}
     </x-slot>
 
+    <h1 class="flex text-center text-4xl relative pb-5">Admin Login</h1>
+
     <form method="POST" action="{{ route('admin.login.submit') }}"> <!-- Changed route to admin.login.submit -->
         @csrf
 
@@ -28,14 +30,14 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-between mt-4">
             <!-- User Login Link -->
             <a href="{{ route('login') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
                 {{ __('User Login') }}
             </a>
 
             <x-primary-button class="ms-3">
-                {{ __('Admin Log in') }} <!-- Changed from Log in to Admin Log in -->
+                {{ __('Log in') }} <!-- Changed from Log in to Admin Log in -->
             </x-primary-button>
         </div>
     </form>
