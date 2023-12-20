@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('trenches', function (Blueprint $table) {
             $table->id();
-            $table->unasignedBigInteger('project_id');
+            $table->unsignedBigInteger('project_id');
             //from date
             $table->date('from_date')->nullable();
             //to date
