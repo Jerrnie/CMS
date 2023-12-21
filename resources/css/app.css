@@ -16,6 +16,10 @@
     .inactive-sidebar-link{
         @apply flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100;
     }
+
+    .custom-input-style{
+        @apply border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm
+    }
 }
 
 

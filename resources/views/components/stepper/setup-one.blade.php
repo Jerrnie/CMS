@@ -9,8 +9,10 @@
             <span class="absolute -bottom-[1.75rem] start-0 rounded-full bg-blue-600 text-white">
                 <x-svg.step-checked/>
             </span>
-            <span class="hidden sm:block"> Details </span>
+            <a href="{{ route('admin.projects.setup', ['project' => $project->id]) }}" class="hidden sm:block"> Details </a>
+            <a href="{{ route('admin.projects.setup', ['project' => $project->id]) }}">
             <x-svg.step-detail/>
+        </a>
         </li>
 
 
