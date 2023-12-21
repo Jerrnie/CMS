@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             SettingsTableSeeder::class,
             UnitSeeder::class,
             BudgetCodesSeed::class,
+            UnitAdminSeeder::class,
 
         ]);
 

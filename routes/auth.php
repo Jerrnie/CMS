@@ -82,6 +82,10 @@ Route::middleware(['auth:admin'])->group(function () {
 
     //create project
     Route::get('admin/projects/create', [ProjectController::class, 'createProject'])->name('admin.projects.create');
+    //submit project
+    Route::post('admin/projects/create', [ProjectController::class, 'submitProject'])->name('admin.projects.submit');
+    //project setup
+    Route::get('admin/projects/setup/{project}', [ProjectController::class, 'setupProject'])->name('admin.projects.setup');
 
 
 

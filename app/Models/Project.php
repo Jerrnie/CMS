@@ -30,6 +30,12 @@ class Project extends Model
         return $this->belongsTo(Expertise::class);
     }
 
+    //expertise_fields
+    public function expertiseFields()
+    {
+        return $this->belongsToMany(ExpertiseField::class);
+    }
+
     public function status()
     {
         return $this->belongsTo(Status::class);

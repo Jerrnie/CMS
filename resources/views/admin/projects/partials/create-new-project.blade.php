@@ -6,11 +6,11 @@
         </h2>
     </header>
 
-    <form method="post" action="{{ route('profile-basic-info.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('admin.projects.submit') }}" class="mt-6 space-y-6">
     {{-- <form method="post" action="#" class="mt-6 space-y-6"> --}}
 
         @csrf
-        @method('patch')
+        @method('post')
 
         <!-- Title -->
         <div>
@@ -30,13 +30,13 @@
         <div class="flex justify-between">
             <div class="w-1/2 pr-2">
                 <x-input-label for="expertise" :value="__('Expertise')" />
-                <select class="block w-full" required>
-                    <option value="0">-- Select Field --</option>
+                <select name="expertise_field_id" class="block w-full" required>
+                    <option value="">-- Select Field --</option>
                     @foreach ($expertiseFields as $id => $name)
                     <option :value="{{ $id }}">{{ $name }}</option>
                     @endforeach
                 </select>
-                <x-input-error :messages="$errors->get('expertise')" class="mt-2" />
+                <x-input-error :messages="$errors->get('expertise_field_id')" class="mt-2" />
             </div>
 
             <div class="w-1/2 pl-2">
@@ -48,33 +48,27 @@
         <!-- Unit -->
         <div>
             <x-input-label for="unit" :value="__('Unit')" />
-            <select  class="block w-full" required>
-                <option value="0">-- Select Unit --</option>
+            <select name="unit_id" class="block w-full" required>
+                <option value="">-- Select Unit --</option>
                 @foreach ($units as $id => $name)
                 <option :value="{{ $id }}">{{ $name }}</option>
                 @endforeach
             </select>
-            <x-input-error :messages="$errors->get('unit')" class="mt-2" />
+            <x-input-error :messages="$errors->get('unit_id')" class="mt-2" />
         </div>
 
         <!-- Save Button -->
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Next') }}</x-primary-button>
 
-            @if (session('status') === 'basicInfo-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-green-600"
-                >{{ __('Saved.') }}</p>
+            @if ($errors->has('unit_id'))
             <script>
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Basic Information Updated',
+                    icon: 'error',
+                    position: "top-end",
+                    title: "{{ $errors->first('unit_id') }}",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 2500
                 });
             </script>
             @endif

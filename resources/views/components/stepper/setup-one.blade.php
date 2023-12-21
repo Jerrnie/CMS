@@ -15,9 +15,9 @@
 
 
         {{-- Terms of Reference --}}
-        <li class="relative flex justify-center text-blue-600">
-          <span class="absolute -bottom-[1.75rem] left-1/2 -translate-x-1/2 rounded-full bg-blue-600 text-white">
-            <x-svg.step-checked/>
+        <li class="relative flex justify-center text-gray-600">
+          <span class="absolute -bottom-[1.75rem] left-1/2 -translate-x-1/2 rounded-full bg-gray-600 text-white">
+            <x-svg.step-unchecked/>
           </span>
             <span class="hidden sm:block"> Terms of Reference </span>
             <x-svg.step-address/>

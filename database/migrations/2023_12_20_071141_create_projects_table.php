@@ -19,11 +19,14 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('expertise_detail')->nullable();
             $table->unsignedBigInteger('unit_id')->nullable();
-            $table->unsignedBigInteger('expertise_id')->nullable();
+            $table->unsignedBigInteger('expertise_field_id')->nullable();
+
+            //dateposted
+            $table->timestamp('dateposted')->nullable();
 
             $table->softDeletes();
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
-            $table->foreign('expertise_id')->references('id')->on('expertises')->onDelete('cascade');
+            $table->foreign('expertise_field_id')->references('id')->on('expertise_fields')->onDelete('cascade');
 
 
             $table->timestamps();
