@@ -27,7 +27,9 @@ return new class extends Migration
             $table->string('aboutUsBanner')->nullable();
             //opportunities Banner
             $table->unsignedBigInteger('year_id')->nullable();
+            $table->unsignedBigInteger('quarter_id')->nullable(); // Add this line
             $table->foreign('year_id')->references('id')->on('years');
+            $table->foreign('quarter_id')->references('id')->on('quarters'); // Now this line should work
             $table->timestamps();
         });
     }

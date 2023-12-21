@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('expertise_detail')->nullable();
             $table->unsignedBigInteger('unit_id')->nullable();
             $table->unsignedBigInteger('expertise_field_id')->nullable();
+            $table->unsignedBigInteger('budgetcode_id')->nullable();
 
             //dateposted
             $table->timestamp('dateposted')->nullable();
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
             $table->foreign('expertise_field_id')->references('id')->on('expertise_fields')->onDelete('cascade');
+            $table->foreign('budgetcode_id')->references('id')->on('budget_codes')->onDelete('cascade');
 
 
             $table->timestamps();
