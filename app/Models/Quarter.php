@@ -18,4 +18,9 @@ class Quarter extends Model
         return $this->hasMany(BudgetCode::class);
     }
 
+    public function settings()
+    {
+        return $this->hasMany(Setting::class);
+    }
+
 }

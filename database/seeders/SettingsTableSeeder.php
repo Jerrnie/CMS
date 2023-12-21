@@ -20,6 +20,8 @@ class SettingsTableSeeder extends Seeder
             'applicationsBanner' => 'banners/default_banner_homepage.jpg',
             'projectsBanner' => 'banners/default_banner_homepage.jpg',
             'aboutUsBanner' => 'banners/default_banner_aboutus.jpg',
+            'year_id' => 1,
+            'quarter_id' => 4,
             // Add more columns as needed
         ]);
     }

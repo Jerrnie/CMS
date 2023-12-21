@@ -18,4 +18,15 @@ class Setting extends Model
         'aboutUsBanner',
     ];
 
+    public function year()
+    {
+        return $this->belongsTo(Year::class);
+    }
+
+    public function quarter()
+    {
+        return $this->belongsTo(Quarter::class);
+    }
+
+
 }

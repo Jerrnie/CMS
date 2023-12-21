@@ -25,4 +25,11 @@ class BudgetCode extends Model
     {
         return $this->belongsTo(Quarter::class);
     }
+
+    //project
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
 }

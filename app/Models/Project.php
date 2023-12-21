@@ -50,4 +50,9 @@ class Project extends Model
     {
         return $this->hasMany(Trench::class);
     }
+
+    public function budgetcode()
+    {
+        return $this->belongsTo(BudgetCode::class);
+    }
 }
