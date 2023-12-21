@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unit;
+use App\Models\Admin;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Models\ExpertiseField;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -61,5 +65,21 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+    }
+
+    public function createProject()
+    {
+        $expertiseFields = ExpertiseField::pluck('name', 'id');
+        $units = Unit::pluck('name', 'id');
+
+        //get admin
+
+        $unitsAdmin = Auth::user()->unitsAdmin()->with('unit')->get();
+        $units = $unitsAdmin->pluck('unit.name', 'unit.id');
+
+        return view('admin.projects.create', [
+            'expertiseFields' => $expertiseFields,
+            'units' => $units,
+        ]);
     }
 }

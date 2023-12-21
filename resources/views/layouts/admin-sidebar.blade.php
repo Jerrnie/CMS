@@ -36,6 +36,12 @@
             </button>
 
             <div x-show="open" class="flex flex-col bg-gray-800">
+                {{-- create project --}}
+                <a class="pl-10 flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="{{ route('admin.projects.create') }}">
+                    <x-svg.nav-create />
+                    <span class="mx-3">Create Project</span>
+                </a>
+
                 <!-- All Open -->
                 <a class="pl-10 flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/projects/all-open">
                     <x-svg.nav-all />

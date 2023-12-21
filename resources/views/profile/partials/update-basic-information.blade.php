@@ -17,7 +17,7 @@
 
         <!-- Date of Birth -->
         <div>
-            <x-input-label for="dob" :value="__('Date of Birth')" />
+            <x-input-label for="dob" :value="__('Date of Birth')" class="required" />
             <x-text-input id="dob" class="block mt-1 w-full" type="date" name="dob" :value="old('dob', optional($user->basicInformation)->dob)" required autofocus />
             <x-input-error :messages="$errors->get('dob')" class="mt-2" />
         </div>
@@ -25,14 +25,14 @@
 
 <!-- Sex -->
 <div class="mt-4">
-    <x-input-label for="sex" :value="__('Sex')" />
+    <x-input-label for="sex" :value="__('Sex')" class="required" />
     <x-select-input id="sex" class="block mt-1 w-full" name="sex" :options="$sexOptions" :selected="old('sex', optional($user->basicInformation)->sex)" required />
     <x-input-error :messages="$errors->get('sex')" class="mt-2" />
 </div>
 
 <!-- Country -->
 <div class="mt-4">
-    <x-input-label for="country" :value="__('Country')" />
+    <x-input-label for="country" :value="__('Country')" class="required" />
     <select id="country" class="block mt-1 w-full" name="country" required autofocus>
         <option value="">Select Country</option>
     </select>
@@ -41,7 +41,7 @@
 
 <!-- Citizenship -->
 <div class="mt-4">
-    <x-input-label for="citizenship" :value="__('Citizenship')" />
+    <x-input-label for="citizenship" :value="__('Citizenship')" class="required" />
     <select id="citizenship" class="block mt-1 w-full" name="citizenship" required autofocus>
         <option value="">Select Citizenship</option>
     </select>
@@ -50,14 +50,14 @@
 
 <!-- Government ID Type -->
 <div class="mt-4">
-    <x-input-label for="gov_id_type" :value="__('Gov ID Type')" />
+    <x-input-label for="gov_id_type" :value="__('Gov ID Type')" class="required" />
     <x-select-input id="gov_id_type" class="block mt-1 w-full" name="gov_id_type" :options="$idTypeOptions" :selected="old('gov_id_type', optional($user->basicInformation)->gov_id_type)" required />
     <x-input-error :messages="$errors->get('gov_id_type')" class="mt-2" />
 </div>
 
 <!-- Government ID Number -->
 <div class="mt-4">
-    <x-input-label for="gov_id_number" :value="__('Gov ID No. (e.g., passport, national ID, etc.)')" />
+    <x-input-label for="gov_id_number" :value="__('Gov ID No. (e.g., passport, national ID, etc.)')" class="required" />
     <x-text-input id="gov_id_number" class="block mt-1 w-full" type="text" name="gov_id_number" :value="old('gov_id_number', optional($user->basicInformation)->gov_id_number)" required autofocus />
     <x-input-error :messages="$errors->get('gov_id_number')" class="mt-2" />
 </div>

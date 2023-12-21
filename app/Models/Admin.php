@@ -16,6 +16,12 @@ class Admin extends Authenticatable
         return $this->belongsTo(Role::class); // Assuming an admin belongs to a role
     }
 
+    // rs units
+    public function unitsAdmin()
+    {
+        return $this->hasMany(UnitAdmin::class);
+    }
+
     public function getFullName()
     {
         $fullName = $this->first_name;

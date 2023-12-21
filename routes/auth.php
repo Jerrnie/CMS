@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SettingController;
 
 Route::middleware('guest')->group(function () {
@@ -77,6 +78,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('admin/settings', [AdminDashboardController::class, 'settings'])->name('admin.settings');
 
     Route::post('admin/settings', [SettingController::class, 'updateSettings'])->name('admin.settings.update');
+
+
+    //create project
+    Route::get('admin/projects/create', [ProjectController::class, 'createProject'])->name('admin.projects.create');
 
 
 
