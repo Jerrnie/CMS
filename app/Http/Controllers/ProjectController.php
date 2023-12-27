@@ -12,6 +12,7 @@ use App\Models\Activity;
 use App\Models\UnitAdmin;
 use App\Models\Assignment;
 use App\Models\BudgetCode;
+use App\Models\Deliverable;
 use Illuminate\Http\Request;
 use App\Models\ExpertiseField;
 use Illuminate\Support\Facades\Auth;
@@ -340,6 +341,24 @@ class ProjectController extends Controller
             'title' => 'required|string',
         ]);
 
+        $project = $trench->project()->first();
+
+        $expertiseFields = ExpertiseField::pluck('name', 'id');
+
+        $status = Status::where('project_id', $project->id)->first();
+
+        $units = $this->getAdminUnits();
+
+        $setting = $this->getSetting();
+
+        $unitAdminIds = $this->getUnitAdminIds();
+
+        $budgetCodes = $this->getBudgetCodes($unitAdminIds, $setting);
+
+        $budgetcode = $project->budgetcode()->first();
+
+        $budgetCodes->push($budgetcode);
+
         //insert new activity
 
         $activity = new Activity;
@@ -347,13 +366,64 @@ class ProjectController extends Controller
         $activity->trench_id = $trench->id;
         $activity->save();
 
+
+        //redirect to admin.projects.setup.activity with all the data to setup activity
+
+        return view('admin.projects.setup-activities', [
+            'project' => $project,
+            'expertiseFields' => $expertiseFields,
+            'units' => $units,
+            'status' => $status,
+            'budgetcode' => $budgetcode,
+            'budgetCodes' => $budgetCodes,
+            'trench' => $trench,
+            'activity' => $activity,
+        ])->with('success', 'Project activity updated successfully');
+
         //redirect to admin.projects.setup.activity
 
-        //get back here
 
-
-        return redirect()->back()->with('success', 'Project activity updated successfully');
+        // return redirect()->back()->with('success', 'Project activity updated successfully');
     }
+
+    //edit activity view
+    public function editActivityView(Activity $activity)
+    {
+        $project = $activity->trench->project()->first();
+
+        $expertiseFields = ExpertiseField::pluck('name', 'id');
+
+        $status = Status::where('project_id', $project->id)->first();
+
+        $units = $this->getAdminUnits();
+
+        $setting = $this->getSetting();
+
+        $unitAdminIds = $this->getUnitAdminIds();
+
+        $budgetCodes = $this->getBudgetCodes($unitAdminIds, $setting);
+
+        $budgetcode = $project->budgetcode()->first();
+
+        $budgetCodes->push($budgetcode);
+
+        $trenches = Trench::where('project_id', $project->id)
+        ->with(['activities', 'activities.deliverables'])
+        ->get();
+
+        return view('admin.projects.setup-activities', [
+            'project' => $project,
+            'expertiseFields' => $expertiseFields,
+            'units' => $units,
+            'status' => $status,
+            'budgetcode' => $budgetcode,
+            'budgetCodes' => $budgetCodes,
+            'trenches' => $trenches,
+            'trench' => $activity->trench,
+            'activity' => $activity,
+        ]);
+    }
+
 
     //edit activity
     public function editActivity(Request $request, Activity $activity)
@@ -362,6 +432,151 @@ class ProjectController extends Controller
         $activity->save();
 
         return redirect()->back()->with('success', 'Project activity updated successfully');
+    }
+
+    //delete activity
+    public function deleteActivity(Activity $activity)
+    {
+        $trench = $activity->trench()->first();
+        $activity->delete();
+
+        $project = $trench->project()->first();
+
+        $expertiseFields = ExpertiseField::pluck('name', 'id');
+
+        $status = Status::where('project_id', $project->id)->first();
+
+        $units = $this->getAdminUnits();
+
+        $setting = $this->getSetting();
+
+        $unitAdminIds = $this->getUnitAdminIds();
+
+        $budgetCodes = $this->getBudgetCodes($unitAdminIds, $setting);
+
+        $budgetcode = $project->budgetcode()->first();
+
+        $budgetCodes->push($budgetcode);
+
+        $trenches = Trench::where('project_id', $project->id)
+        ->with(['activities', 'activities.deliverables'])
+        ->get();
+
+        return view('admin.projects.setup-reference', [
+            'project' => $project,
+            'expertiseFields' => $expertiseFields,
+            'units' => $units,
+            'status' => $status,
+            'budgetcode' => $budgetcode,
+            'budgetCodes' => $budgetCodes,
+            'trenches' => $trenches,
+            'setting' => $setting,
+        ])->with('success', 'Project activity deleted successfully');
+
+
+    }
+
+    //add deliverable
+    public function addDeliverable(Request $request ,Activity $activity)
+    {
+        $request->validate([
+            'title' => 'required|string',
+        ]);
+        $activityID = $activity->id;
+
+        $activity->deliverables()->create([
+            'title' => $request->title,
+            'activity_id' => $activityID,
+        ]);
+        $project = $activity->trench->project()->first();
+
+        $expertiseFields = ExpertiseField::pluck('name', 'id');
+
+        $status = Status::where('project_id', $project->id)->first();
+
+        $units = $this->getAdminUnits();
+
+        $setting = $this->getSetting();
+
+        $unitAdminIds = $this->getUnitAdminIds();
+
+        $budgetCodes = $this->getBudgetCodes($unitAdminIds, $setting);
+
+        $budgetcode = $project->budgetcode()->first();
+
+        $budgetCodes->push($budgetcode);
+
+        $trenches = Trench::where('project_id', $project->id)
+        ->with(['activities', 'activities.deliverables'])
+        ->get();
+
+        return view('admin.projects.setup-activities', [
+            'project' => $project,
+            'expertiseFields' => $expertiseFields,
+            'units' => $units,
+            'status' => $status,
+            'budgetcode' => $budgetcode,
+            'budgetCodes' => $budgetCodes,
+            'trenches' => $trenches,
+            'trench' => $activity->trench,
+            'activity' => $activity,
+        ])->with('success', 'Project deliverable added successfully');
+
+    }
+
+    //delete deliverable
+    public function deleteDeliverable($deliverable_id)
+    {
+
+        $activity = Deliverable::find($deliverable_id)->activity()->first();
+
+        $deliverable = Deliverable::find($deliverable_id);
+        $deliverable->delete();
+
+        $project = $activity->trench->project()->first();
+
+        $expertiseFields = ExpertiseField::pluck('name', 'id');
+
+        $status = Status::where('project_id', $project->id)->first();
+
+        $units = $this->getAdminUnits();
+
+        $setting = $this->getSetting();
+
+        $unitAdminIds = $this->getUnitAdminIds();
+
+        $budgetCodes = $this->getBudgetCodes($unitAdminIds, $setting);
+
+        $budgetcode = $project->budgetcode()->first();
+
+        $budgetCodes->push($budgetcode);
+
+        $trenches = Trench::where('project_id', $project->id)
+        ->with(['activities', 'activities.deliverables'])
+        ->get();
+
+        return view('admin.projects.setup-activities', [
+            'project' => $project,
+            'expertiseFields' => $expertiseFields,
+            'units' => $units,
+            'status' => $status,
+            'budgetcode' => $budgetcode,
+            'budgetCodes' => $budgetCodes,
+            'trenches' => $trenches,
+            'trench' => $activity->trench,
+            'activity' => $activity,
+        ])->with('success', 'Project deliverable deleted successfully');
+
+    }
+
+    //edit deliverable
+    public function editDeliverable(Request $request, $deliverable_id)
+    {
+        $deliverable = Deliverable::find($deliverable_id);
+        $deliverable->title = $request->title;
+        $deliverable->save();
+
+        return redirect()->back()->with('success', 'Project deliverable updated successfully');
     }
 
     //delete trench/reference

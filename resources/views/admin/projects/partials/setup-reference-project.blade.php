@@ -30,11 +30,13 @@
                                                     <option>No Activity</option>
                                                 @endif
                                                 @foreach ($trench->activities as $activity)
-                                                    <option>{{ $activity->title }}</option>
+                                                    <option onclick="window.location='{{ route('admin.projects.edit.activity', $activity->id) }}';" title="Click to edit / add deliverables">
+                                                        {{ $activity->title }}
+                                                    </option>
                                                 @endforeach
                                             </select>
 
-                                            <x-modal-activity :trench="$trench"/>
+                                        <x-modal-activity :trench="$trench"/>
 
 
                                         </div>
