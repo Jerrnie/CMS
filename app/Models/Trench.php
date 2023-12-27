@@ -10,8 +10,8 @@ class Trench extends Model
     use HasFactory;
 
     protected $fillable = [
-        'from_date',
-        'to_date',
+        'date_from',
+        'date_to',
         'budget',
         'project_id',
     ];

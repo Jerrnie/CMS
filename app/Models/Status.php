@@ -21,4 +21,5 @@ class Status extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
 }

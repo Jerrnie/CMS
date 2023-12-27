@@ -1,7 +1,7 @@
 <x-admin-layout>
 
     <x-slot name="headerName">
-        {{ __('Reference') }}
+        {{ __('Activities') }}
     </x-slot>
 
     <x-stepper.setup-two :project="$project"/>
@@ -26,7 +26,7 @@
     <div class="py-4 tab-content" id="profileInfo">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                @include('admin.projects.partials.setup-reference-project')
+                @include('admin.projects.partials.setup-activity-project')
             </div>
         </div>
     </div>

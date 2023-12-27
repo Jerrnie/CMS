@@ -71,7 +71,7 @@
 
         <!-- Save Button -->
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Next') }}</x-primary-button>
+            <x-primary-button>{{ __('Create') }}</x-primary-button>
 
             @if ($errors->has('unit_id'))
             <script>

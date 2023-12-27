@@ -33,11 +33,11 @@
                 <select name="expertise_field_id" class="block w-full mt-1 custom-input-style" required>
                     <option value="">-- Select Field --</option>
                     @foreach ($expertiseFields as $id => $name)
-                    <option :value="{{ $id }}"
-                    @if ($project->expertise_field_id == $id)
-                        selected
-                    @endif
-                    >{{ $name }}</option>
+                        <option value="{{ $id }}"
+                            @if ($project->expertise_field_id == $id)
+                                selected
+                            @endif
+                        >{{ $name }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('expertise_field_id')" class="mt-2" />
@@ -55,13 +55,11 @@
             <select name="unit_id" class="block w-full mt-1 custom-input-style" required>
                 <option value="">-- Select Unit --</option>
                 @foreach ($units as $id => $name)
-                <option :value="{{ $id }}"
-                @if ($project->unit_id == $id)
-                    selected
-                @endif
-                >{{ $name }}
-
-            </option>
+                    <option value="{{ $id }}"
+                        @if ($project->unit_id == $id)
+                            selected
+                        @endif
+                    >{{ $name }}</option>
                 @endforeach
             </select>
             <x-input-error :messages="$errors->get('unit_id')" class="mt-2" />

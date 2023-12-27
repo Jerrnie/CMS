@@ -1,7 +1,7 @@
 <x-admin-layout>
 
     <x-slot name="headerName">
-        {{ __('Create new project') }}
+        {{ __('Setup project') }}
     </x-slot>
 
     <x-stepper.setup-one :project="$project"/>

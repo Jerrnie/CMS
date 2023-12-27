@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('project_id');
             //from date
-            $table->date('from_date')->nullable();
+            $table->date('date_from')->nullable();
             //to date
-            $table->date('to_date')->nullable();
+            $table->date('date_to')->nullable();
             $table->decimal('budget', 10, 2)->nullable();
             $table->timestamps();
 
