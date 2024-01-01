@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trench_output_attachments', function (Blueprint $table) {
+        Schema::create('tranch_output_attachments', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->unsignedBigInteger('trench_output_id');
+            $table->unsignedBigInteger('tranch_output_id');
             $table->text('description')->nullable();
             $table->tinyInteger('type')->default(1); // 1 = file, 2 = url
             $table->text('file_name')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('url')->nullable();
             $table->timestamps();
 
-            $table->foreign('trench_output_id')->references('id')->on('trench_outputs')->onDelete('cascade');
+            $table->foreign('tranch_output_id')->references('id')->on('tranch_outputs')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trench_output_attachments');
+        Schema::dropIfExists('tranch_output_attachments');
     }
 };

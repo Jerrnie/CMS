@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Trench;
+use App\Models\Tranch;
 use Illuminate\Http\Request;
 
-class TrenchController extends Controller
+class TranchController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class TrenchController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Trench $trench)
+    public function show(Tranch $tranch)
     {
         //
     }
@@ -42,7 +42,7 @@ class TrenchController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Trench $trench)
+    public function edit(Tranch $tranch)
     {
         //
     }
@@ -50,7 +50,7 @@ class TrenchController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Trench $trench)
+    public function update(Request $request, Tranch $tranch)
     {
         //
     }
@@ -58,7 +58,7 @@ class TrenchController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Trench $trench)
+    public function destroy(Tranch $tranch)
     {
         //
     }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TrenchOutputAttachment;
+use App\Models\TranchOutputAttachment;
 use Illuminate\Http\Request;
 
-class TrenchOutputAttachmentController extends Controller
+class TranchOutputAttachmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class TrenchOutputAttachmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TrenchOutputAttachment $trenchOutputAttachment)
+    public function show(TranchOutputAttachment $tranchOutputAttachment)
     {
         //
     }
@@ -42,7 +42,7 @@ class TrenchOutputAttachmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TrenchOutputAttachment $trenchOutputAttachment)
+    public function edit(TranchOutputAttachment $tranchOutputAttachment)
     {
         //
     }
@@ -50,7 +50,7 @@ class TrenchOutputAttachmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TrenchOutputAttachment $trenchOutputAttachment)
+    public function update(Request $request, TranchOutputAttachment $tranchOutputAttachment)
     {
         //
     }
@@ -58,7 +58,7 @@ class TrenchOutputAttachmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TrenchOutputAttachment $trenchOutputAttachment)
+    public function destroy(TranchOutputAttachment $tranchOutputAttachment)
     {
         //
     }

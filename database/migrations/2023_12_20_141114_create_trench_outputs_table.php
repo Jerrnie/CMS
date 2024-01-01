@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trench_outputs', function (Blueprint $table) {
+        Schema::create('tranch_outputs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('trench_id');
+            $table->unsignedBigInteger('tranch_id');
             $table->unsignedBigInteger('consultant_id');
             //date sumbitted
             $table->date('date_submitted')->nullable();
@@ -25,9 +25,9 @@ return new class extends Migration
             $table->string('comment')->nullable();
 
 
-            $table->foreign('trench_id')
+            $table->foreign('tranch_id')
                 ->references('id')
-                ->on('trenches')
+                ->on('tranches')
                 ->onDelete('cascade');
 
             $table->foreign('consultant_id')
@@ -47,6 +47,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trench_outputs');
+        Schema::dropIfExists('tranch_outputs');
     }
 };

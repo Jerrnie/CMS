@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TrenchOutput extends Model
+class TranchOutput extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'trench_id',
+        'tranch_id',
         'title',
         'description',
         'file',
     ];
 
-    public function trench()
+    public function tranch()
     {
-        return $this->belongsTo(Trench::class);
+        return $this->belongsTo(Tranch::class);
     }
 
 }

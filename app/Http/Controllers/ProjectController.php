@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Unit;
 use App\Models\Admin;
 use App\Models\Status;
-use App\Models\Trench;
+use App\Models\Tranch;
 use App\Models\Project;
 use App\Models\Setting;
 use App\Models\Activity;
@@ -121,6 +121,57 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+    }
+
+    public function setupSummary($project_id)
+    {
+
+        $project = Project::find($project_id);
+
+        $expertiseFields = ExpertiseField::pluck('name', 'id');
+
+        $status = Status::where('project_id', $project->id)->first();
+
+        $units = $this->getAdminUnits();
+
+        $setting = $this->getSetting();
+
+        $unitAdminIds = $this->getUnitAdminIds();
+
+        $budgetCodes = $this->getBudgetCodes($unitAdminIds, $setting);
+
+        $budgetcode = $project->budgetcode()->first();
+
+        $budgetCodes->push($budgetcode);
+
+        //get tranches with activity and deliverables
+        $tranches = Tranch::where('project_id', $project->id);
+        $tranches->with(['activities', 'activities.deliverables']);
+        $tranches = $tranches->get();
+
+        $total_budget = $tranches->sum('budget');
+
+        //get min date and max date from tranches
+
+        $min_date = $tranches->min('date_from');
+        $max_date = $tranches->max('date_to');
+
+        $period = $min_date . ' - ' . $max_date;
+
+
+
+        return view('admin.projects.setup-summary', [
+            'project' => $project,
+            'expertiseFields' => $expertiseFields,
+            'units' => $units,
+            'status' => $status,
+            'budgetcode' => $budgetcode,
+            'budgetCodes' => $budgetCodes,
+            'tranches' => $tranches,
+            'total_budget' => $total_budget,
+            'period' => $period,
+        ]);
+
     }
 
     public function createProject()
@@ -258,7 +309,7 @@ class ProjectController extends Controller
 
         $budgetCodes->push($budgetcode);
 
-        $trenches = Trench::where('project_id', $project->id)
+        $tranches = Tranch::where('project_id', $project->id)
         ->with(['activities', 'activities.deliverables'])
         ->get();
 
@@ -270,7 +321,7 @@ class ProjectController extends Controller
             'status' => $status,
             'budgetcode' => $budgetcode,
             'budgetCodes' => $budgetCodes,
-            'trenches' => $trenches,
+            'tranches' => $tranches,
             'setting' => $setting,
         ]);
     }
@@ -285,21 +336,21 @@ class ProjectController extends Controller
             'date_to' => 'required|date|after_or_equal:date_from',
         ]);
 
-        //insert new trench
+        //insert new tranch
 
-        $trench = new Trench;
-        $trench->budget = $request->budget;
-        $trench->date_from = $request->date_from;
-        $trench->date_to = $request->date_to;
-        $trench->project_id = $project->id;
-        $trench->save();
+        $tranch = new Tranch;
+        $tranch->budget = $request->budget;
+        $tranch->date_from = $request->date_from;
+        $tranch->date_to = $request->date_to;
+        $tranch->project_id = $project->id;
+        $tranch->save();
 
         return redirect()->back()->with('success', 'Project reference updated successfully');
     }
 
-    public function setupActivity(Trench $trench)
+    public function setupActivity(Tranch $tranch)
     {
-        $project = $trench->project()->first();
+        $project = $tranch->project()->first();
 
         $expertiseFields = ExpertiseField::pluck('name', 'id');
 
@@ -317,7 +368,7 @@ class ProjectController extends Controller
 
         $budgetCodes->push($budgetcode);
 
-        $trenches = Trench::where('project_id', $project->id)
+        $tranches = Tranch::where('project_id', $project->id)
         ->with(['activities', 'activities.deliverables'])
         ->get();
 
@@ -328,12 +379,12 @@ class ProjectController extends Controller
             'status' => $status,
             'budgetcode' => $budgetcode,
             'budgetCodes' => $budgetCodes,
-            'trenches' => $trenches,
-            'trench' => $trench,
+            'tranches' => $tranches,
+            'tranch' => $tranch,
         ]);
     }
 
-    public function submitActivity(Request $request, Trench $trench)
+    public function submitActivity(Request $request, Tranch $tranch)
     {
 
         //validate cost/budget, date from and date to
@@ -341,7 +392,7 @@ class ProjectController extends Controller
             'title' => 'required|string',
         ]);
 
-        $project = $trench->project()->first();
+        $project = $tranch->project()->first();
 
         $expertiseFields = ExpertiseField::pluck('name', 'id');
 
@@ -363,7 +414,7 @@ class ProjectController extends Controller
 
         $activity = new Activity;
         $activity->title = $request->title;
-        $activity->trench_id = $trench->id;
+        $activity->tranch_id = $tranch->id;
         $activity->save();
 
 
@@ -376,7 +427,7 @@ class ProjectController extends Controller
             'status' => $status,
             'budgetcode' => $budgetcode,
             'budgetCodes' => $budgetCodes,
-            'trench' => $trench,
+            'tranch' => $tranch,
             'activity' => $activity,
         ])->with('success', 'Project activity updated successfully');
 
@@ -389,7 +440,7 @@ class ProjectController extends Controller
     //edit activity view
     public function editActivityView(Activity $activity)
     {
-        $project = $activity->trench->project()->first();
+        $project = $activity->tranch->project()->first();
 
         $expertiseFields = ExpertiseField::pluck('name', 'id');
 
@@ -407,7 +458,7 @@ class ProjectController extends Controller
 
         $budgetCodes->push($budgetcode);
 
-        $trenches = Trench::where('project_id', $project->id)
+        $tranches = Tranch::where('project_id', $project->id)
         ->with(['activities', 'activities.deliverables'])
         ->get();
 
@@ -418,8 +469,8 @@ class ProjectController extends Controller
             'status' => $status,
             'budgetcode' => $budgetcode,
             'budgetCodes' => $budgetCodes,
-            'trenches' => $trenches,
-            'trench' => $activity->trench,
+            'tranches' => $tranches,
+            'tranch' => $activity->tranch,
             'activity' => $activity,
         ]);
     }
@@ -437,10 +488,10 @@ class ProjectController extends Controller
     //delete activity
     public function deleteActivity(Activity $activity)
     {
-        $trench = $activity->trench()->first();
+        $tranch = $activity->tranch()->first();
         $activity->delete();
 
-        $project = $trench->project()->first();
+        $project = $tranch->project()->first();
 
         $expertiseFields = ExpertiseField::pluck('name', 'id');
 
@@ -458,7 +509,7 @@ class ProjectController extends Controller
 
         $budgetCodes->push($budgetcode);
 
-        $trenches = Trench::where('project_id', $project->id)
+        $tranches = Tranch::where('project_id', $project->id)
         ->with(['activities', 'activities.deliverables'])
         ->get();
 
@@ -469,7 +520,7 @@ class ProjectController extends Controller
             'status' => $status,
             'budgetcode' => $budgetcode,
             'budgetCodes' => $budgetCodes,
-            'trenches' => $trenches,
+            'tranches' => $tranches,
             'setting' => $setting,
         ])->with('success', 'Project activity deleted successfully');
 
@@ -488,7 +539,7 @@ class ProjectController extends Controller
             'title' => $request->title,
             'activity_id' => $activityID,
         ]);
-        $project = $activity->trench->project()->first();
+        $project = $activity->tranch->project()->first();
 
         $expertiseFields = ExpertiseField::pluck('name', 'id');
 
@@ -506,7 +557,7 @@ class ProjectController extends Controller
 
         $budgetCodes->push($budgetcode);
 
-        $trenches = Trench::where('project_id', $project->id)
+        $tranches = Tranch::where('project_id', $project->id)
         ->with(['activities', 'activities.deliverables'])
         ->get();
 
@@ -517,8 +568,8 @@ class ProjectController extends Controller
             'status' => $status,
             'budgetcode' => $budgetcode,
             'budgetCodes' => $budgetCodes,
-            'trenches' => $trenches,
-            'trench' => $activity->trench,
+            'tranches' => $tranches,
+            'tranch' => $activity->tranch,
             'activity' => $activity,
         ])->with('success', 'Project deliverable added successfully');
 
@@ -533,7 +584,7 @@ class ProjectController extends Controller
         $deliverable = Deliverable::find($deliverable_id);
         $deliverable->delete();
 
-        $project = $activity->trench->project()->first();
+        $project = $activity->tranch->project()->first();
 
         $expertiseFields = ExpertiseField::pluck('name', 'id');
 
@@ -551,7 +602,7 @@ class ProjectController extends Controller
 
         $budgetCodes->push($budgetcode);
 
-        $trenches = Trench::where('project_id', $project->id)
+        $tranches = Tranch::where('project_id', $project->id)
         ->with(['activities', 'activities.deliverables'])
         ->get();
 
@@ -562,8 +613,8 @@ class ProjectController extends Controller
             'status' => $status,
             'budgetcode' => $budgetcode,
             'budgetCodes' => $budgetCodes,
-            'trenches' => $trenches,
-            'trench' => $activity->trench,
+            'tranches' => $tranches,
+            'tranch' => $activity->tranch,
             'activity' => $activity,
         ])->with('success', 'Project deliverable deleted successfully');
 
@@ -579,23 +630,23 @@ class ProjectController extends Controller
         return redirect()->back()->with('success', 'Project deliverable updated successfully');
     }
 
-    //delete trench/reference
-    public function deleteReference($trench_id)
+    //delete tranch/reference
+    public function deleteReference($tranch_id)
     {
-        $trench = Trench::find($trench_id);
-        $trench->delete();
+        $tranch = Tranch::find($tranch_id);
+        $tranch->delete();
 
         return redirect()->back()->with('success', 'Project reference deleted successfully');
     }
 
-    //edit trench/reference
-    public function editReference(Request $request, $trench_id)
+    //edit tranch/reference
+    public function editReference(Request $request, $tranch_id)
     {
-        $trench = Trench::find($trench_id);
-        $trench->budget = $request->budget;
-        $trench->date_from = $request->date_from;
-        $trench->date_to = $request->date_to;
-        $trench->save();
+        $tranch = Tranch::find($tranch_id);
+        $tranch->budget = $request->budget;
+        $tranch->date_from = $request->date_from;
+        $tranch->date_to = $request->date_to;
+        $tranch->save();
 
         return redirect()->back()->with('success', 'Project reference updated successfully');
     }

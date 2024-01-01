@@ -1,5 +1,5 @@
 <div x-data="{ isOpen: false }">
-    <button @click="isOpen = true" class="px-4 py-2 bg-blue-600 text-white rounded">Create Trench</button>
+    <button @click="isOpen = true" class="px-4 py-2 bg-blue-600 text-white rounded">Create Tranch</button>
 <form action="{{ route('admin.projects.submit.reference', ['project' => $project]) }}" method="POST">
     @csrf
     @method('POST')
@@ -14,7 +14,7 @@
                     <div class="sm:flex sm:items-start">
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                Add Trench
+                                Add Tranch
                             </h3>
                             <div class="mt-2">
                                 <label class="text-xs">Budget</label>

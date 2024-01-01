@@ -94,15 +94,15 @@ Route::middleware(['auth:admin'])->group(function () {
     //submit reference
     Route::post('admin/projects/setup/{project}/reference', [ProjectController::class, 'submitReference'])->name('admin.projects.submit.reference');
     //submit edit reference
-    Route::put('admin/projects/setup/trench/edit{trench}', [ProjectController::class, 'editReference'])->name('admin.projects.edit.reference');
+    Route::put('admin/projects/setup/tranch/edit{tranch}', [ProjectController::class, 'editReference'])->name('admin.projects.edit.reference');
     //delete reference
     Route::delete('admin/projects/setup/{project}/reference', [ProjectController::class, 'deleteReference'])->name('admin.projects.delete.reference');
 
 
     //activity setup
-    Route::get('admin/projects/setup/{trench}/activity', [ProjectController::class, 'setupActivity'])->name('admin.projects.setup.activity');
+    Route::get('admin/projects/setup/{tranch}/activity', [ProjectController::class, 'setupActivity'])->name('admin.projects.setup.activity');
     //submit activity
-    Route::post('admin/projects/setup/{trench}/activity', [ProjectController::class, 'submitActivity'])->name('admin.projects.submit.activity');
+    Route::post('admin/projects/setup/{tranch}/activity', [ProjectController::class, 'submitActivity'])->name('admin.projects.submit.activity');
     //submit to edit activity
     Route::put('admin/projects/setup/{activity}/edit', [ProjectController::class, 'editActivity'])->name('admin.projects.edit.activity');
     //edit activity
@@ -119,6 +119,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::delete('admin/projects/setup/{deliverable}/deliverable', [ProjectController::class, 'deleteDeliverable'])->name('admin.projects.delete.deliverable');
     //edit deliverable
     Route::put('admin/projects/setup/{deliverable}/deliverable', [ProjectController::class, 'editDeliverable'])->name('admin.projects.edit.deliverable');
+
+    //summary setup
+    Route::get('admin/projects/setup/{project}/summary', [ProjectController::class, 'setupSummary'])->name('admin.projects.setup.summary');
+
 
 
 

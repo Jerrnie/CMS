@@ -46,9 +46,9 @@ class Project extends Model
         return $this->hasMany(Assignment::class);
     }
 
-    public function trenches()
+    public function tranches()
     {
-        return $this->hasMany(Trench::class);
+        return $this->hasMany(Tranch::class);
     }
 
     public function budgetcode()

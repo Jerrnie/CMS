@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Trench extends Model
+class Tranch extends Model
 {
     use HasFactory;
 
@@ -24,5 +24,11 @@ class Trench extends Model
     public function activities()
     {
         return $this->hasMany(Activity::class);
+    }
+
+    public function getTotalBudget($project_id)
+    {
+        $total_budget = Tranch::where('project_id', $project_id)->sum('budget');
+        return $total_budget;
     }
 }

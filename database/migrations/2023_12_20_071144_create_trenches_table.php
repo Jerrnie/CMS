@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trenches', function (Blueprint $table) {
+        Schema::create('tranches', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id');
             //from date
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trenches');
+        Schema::dropIfExists('tranches');
     }
 };

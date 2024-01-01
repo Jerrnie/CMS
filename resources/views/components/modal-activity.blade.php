@@ -8,7 +8,7 @@
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
             <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <form method="POST" action="{{ route('admin.projects.submit.activity', ['trench' => $trench]) }}">
+                <form method="POST" action="{{ route('admin.projects.submit.activity', ['tranch' => $tranch]) }}">
                     @csrf
                     <input type="hidden" name="_method" value="POST">
                     <div class="flex justify-between items-center px-5 py-3 text-gray-700 border-b">

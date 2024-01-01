@@ -11,12 +11,12 @@ class Activity extends Model
 
     protected $fillable = [
         'title',
-        'trench_id',
+        'tranch_id',
     ];
 
-    public function trench()
+    public function tranch()
     {
-        return $this->belongsTo(Trench::class);
+        return $this->belongsTo(Tranch::class);
     }
 
     public function deliverables()

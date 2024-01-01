@@ -1,7 +1,7 @@
 <div class="inline-block" x-data="{ isOpen: false }">
     <button @click="isOpen = true" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors duration-200">Edit</button>
 
-<form action="{{ route('admin.projects.edit.reference', ['trench' => $trench]) }}" method="POST" >
+<form action="{{ route('admin.projects.edit.reference', ['tranch' => $tranch]) }}" method="POST" >
     @csrf
     @method('PUT')
     <div x-show="isOpen" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -15,24 +15,24 @@
                     <div class="sm:flex sm:items-start">
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                Add Trench
+                                Add Tranch
                             </h3>
                             <div class="mt-2">
                                 <label class="text-xs">Budget</label>
                                 <div class="mt-2">
-                                    <input type="number" value="{{ $trench->budget }}" name="budget" placeholder="Budget" class="form-input mt-1 block w-full">
+                                    <input type="number" value="{{ $tranch->budget }}" name="budget" placeholder="Budget" class="form-input mt-1 block w-full">
                                 </div>
                             </div>
                             <div class="mt-2">
                                 <label class="text-xs">From</label>
                                 <div class="mt-2">
-                                    <input name="date_from" value={{ $trench->date_from }} type="date" placeholder="Date From" class="form-input mt-1 block w-full">
+                                    <input name="date_from" value={{ $tranch->date_from }} type="date" placeholder="Date From" class="form-input mt-1 block w-full">
                                 </div>
                             </div>
                             <div class="mt-2">
                                 <label class="text-xs">To</label>
                                 <div class="mt-2">
-                                    <input name="date_to" value={{ $trench->date_to }} type="date" placeholder="Date To" class="form-input mt-1 block w-full">
+                                    <input name="date_to" value={{ $tranch->date_to }} type="date" placeholder="Date To" class="form-input mt-1 block w-full">
                                 </div>
                             </div>
                         </div>

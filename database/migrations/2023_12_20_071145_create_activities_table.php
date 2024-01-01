@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('trench_id');
+            $table->unsignedBigInteger('tranch_id');
             $table->string('title')->nullable();
             $table->timestamps();
 
             //soft delete
             $table->softDeletes();
 
-            $table->foreign('trench_id')
+            $table->foreign('tranch_id')
                 ->references('id')
-                ->on('trenches')
+                ->on('tranches')
                 ->onDelete('cascade');
         });
     }
