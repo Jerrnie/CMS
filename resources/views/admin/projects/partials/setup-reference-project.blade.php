@@ -6,15 +6,18 @@
                 <div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
                     <h2 class="text-lg leading-6 font-medium text-gray-900">Tranch</h2>
                         <x-btn-create-tranch :project="$project"/>
+                        <a href="{{ route('admin.projects.setup.summary', ['project' => $project->id]) }}" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-blue-700 transition-colors duration-200">
+                            Check Summary
+                        </a>
                 </div>
 
                 @if ($tranches)
                     <table class="min-w-full divide-y divide-gray-200">
                         @include('admin.projects.partials.thead-tranch')
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach ($tranches as $tranch)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $tranch->id }}</td>
+                            @foreach ($tranches as $index => $tranch)
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $index + 1 }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $tranch->budget }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($tranch->date_from)->diffInWeekdays(\Carbon\Carbon::parse($tranch->date_to)) }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm">
@@ -30,24 +33,27 @@
                                                     <option>No Activity</option>
                                                 @endif
                                                 @foreach ($tranch->activities as $activity)
-                                                    <option>{{ $activity->title }}</option>
+                                                    <option onclick="window.location='{{ route('admin.projects.edit.activity', $activity->id) }}';" title="Click to edit / add deliverables">
+                                                        {{ $activity->title }}
+                                                    </option>
                                                 @endforeach
                                             </select>
-                                            {{-- <a href="{{ route('admin.projects.setup.activity', ['tranch' => $tranch]) }}">
-                                                <button class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">+</button>
-                                            </a> --}}
 
-                                            <x-modal-activity :tranch="$tranch"/>
-
-
-
-
+                                        <x-modal-activity :tranch="$tranch"/>
 
 
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <button class="px-4 py-2 bg-red-600 text-white rounded">Delete</button>
+
+                                        <x-modal-edit-tranch :tranch="$tranch"/>
+
+
+                                        <form method="POST" action="{{ route('admin.projects.delete.reference', $tranch->id) }}" class="inline-block" >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded delete-btn hover:bg-red-700 transition-colors duration-200">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -59,3 +65,24 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.parentElement.submit();
+                }
+            })
+        });
+    });
+    </script>

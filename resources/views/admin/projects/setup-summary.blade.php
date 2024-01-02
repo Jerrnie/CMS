@@ -4,7 +4,7 @@
         {{ __('Reference') }}
     </x-slot>
 
-    <x-stepper.setup-two :project="$project"/>
+    <x-stepper.setup-three :project="$project"/>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
@@ -22,11 +22,26 @@
     </div>
 
 
+    <div class="py-4 tab-content" id="profileInfo">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                @include('admin.projects.partials.setup-description-project')
+            </div>
+        </div>
+    </div>
 
     <div class="py-4 tab-content" id="profileInfo">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 @include('admin.projects.partials.setup-summary-project')
+            </div>
+        </div>
+    </div>
+
+    <div class="py-4 tab-content" id="profileInfo">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                @include('admin.projects.partials.action-buttons')
             </div>
         </div>
     </div>

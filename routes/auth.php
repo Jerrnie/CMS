@@ -89,6 +89,11 @@ Route::middleware(['auth:admin'])->group(function () {
     //detail setup
     Route::get('admin/projects/setup/{project}', [ProjectController::class, 'setupProject'])->name('admin.projects.setup');
 
+    Route::put('/admin/projects/{project}/post', [ProjectController::class, 'post'])->name('admin.projects.post');
+    Route::put('/admin/projects/{project}/unpost', [ProjectController::class, 'unpost'])->name('admin.projects.unpost');
+    Route::delete('/admin/projects/{project}', [ProjectController::class, 'delete'])->name('admin.projects.delete');
+    Route::put('/admin/projects/{project}/remove-consultant', [ProjectController::class, 'removeConsultant'])->name('admin.projects.remove.consultant');
+
     //reference setup
     Route::get('admin/projects/setup/{project}/reference', [ProjectController::class, 'setupReference'])->name('admin.projects.setup.reference');
     //submit reference

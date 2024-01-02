@@ -8,6 +8,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="icon" href="{{ asset($setting->logo) }}" >
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
         {{-- <link rel="canonical" href="{{ $page->getUrl() }}"> --}}
 
         <title>
@@ -37,9 +39,21 @@
                 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <div class="container mx-auto px-6 py-8">
                         {{ $slot }}
+                        @if (session('error'))
+                        <script>
+                            Swal.fire({
+                                icon: 'error',
+                                position: "top-end",
+                                title: "{{ session('error') }}",
+                                showConfirmButton: false,
+                                timer: 2500
+                            });
+                        </script>
+                    @endif
                     </div>
                 </main>
             </div>
         </div>
+
     </body>
 </html>

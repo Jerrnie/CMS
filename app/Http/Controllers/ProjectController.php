@@ -67,6 +67,47 @@ class ProjectController extends Controller
         return $unitsAdmin->pluck('unit.id')->toArray();
     }
 
+
+    public function post(Project $project)
+    {
+        //make the status as posted
+        $status = Status::where('project_id', $project->id)->first();
+        $status->name = 'posted';
+        $status->code = 2;
+        $status->save();
+
+        //redirect to back
+        return redirect()->back()->with('success', 'Project posted successfully');
+
+        // return redirect()->route('admin.projects.index');
+    }
+
+    public function unpost(Project $project)
+    {
+        // aake the project to draft
+        $status = Status::where('project_id', $project->id)->first();
+        $status->name = 'draft';
+        $status->code = 1;
+        $status->save();
+
+        //redirect to back
+        return redirect()->back()->with('success', 'Project unposted successfully');
+
+        // return redirect()->route('admin.projects.index');
+    }
+
+    //delete project
+    public function delete(Project $project)
+    {
+        //delete project
+        $project->delete();
+
+        //redirect to homepage
+        return redirect()->route('admin.dashboard')->with('success', 'Project deleted successfully');
+
+        // return redirect()->route('admin.projects.index');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -123,11 +164,42 @@ class ProjectController extends Controller
         //
     }
 
+    public function removeConsultant(Project $project)
+{
+    // Ensure there's a consultant to remove
+    if (!$project->consultant_id) {
+        return redirect()->back()->with('error', 'No consultant assigned to this project.');
+    }
+
+    // Remove the consultant
+    $project->consultant_id = null;
+    $project->save();
+
+    return redirect()->back()->with('success', 'Consultant removed successfully.');
+}
+
     public function setupSummary($project_id)
     {
 
         $project = Project::find($project_id);
 
+        //get tranches with activity and deliverables
+        $tranches = Tranch::where('project_id', $project->id);
+        $tranches->with(['activities', 'activities.deliverables']);
+        $tranches = $tranches->get();
+
+        // Check if each tranch has at least one activity and each activity has at least one deliverable
+        foreach ($tranches as $tranchIndex => $tranch) {
+            if ($tranch->activities->isEmpty()) {
+                return redirect()->back()->with('error', 'Tranch ' . ($tranchIndex + 1) . ' has no activities.');
+            }
+
+            foreach ($tranch->activities as $activityIndex => $activity) {
+                if ($activity->deliverables->isEmpty()) {
+                    return redirect()->back()->with('error', 'Activity ' . ($activityIndex + 1) . ' in tranch ' . ($tranchIndex + 1) . ' has no deliverables.');
+                }
+            }
+        }
         $expertiseFields = ExpertiseField::pluck('name', 'id');
 
         $status = Status::where('project_id', $project->id)->first();

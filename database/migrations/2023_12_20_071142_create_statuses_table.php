@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             //status code
             // add comment 1 = draft 2 = posted 3 = completed 4 = cancelled 5 = deleted
-            $table->integer('code')->comment('1 = draft 2 = posted 3 = completed 4 = cancelled 5 = deleted')->nullable();
+            $table->integer('code')->comment('1 = draft 2 = posted 3 = ongoing 4 = completed 5 = cancelled 6 = deleted')->nullable();
 
             //soft delete
             $table->softDeletes();
