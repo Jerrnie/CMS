@@ -128,6 +128,13 @@ Route::middleware(['auth:admin'])->group(function () {
     //summary setup
     Route::get('admin/projects/setup/{project}/summary', [ProjectController::class, 'setupSummary'])->name('admin.projects.setup.summary');
 
+    //allprojects
+    Route::get('admin/projects', [ProjectController::class, 'allProjects'])->name('admin.projects.all');
+    //open projects
+    Route::get('admin/projects/open', [ProjectController::class, 'openProjects'])->name('admin.projects.open');
+    //view project
+    Route::get('admin/projects/{project}', [ProjectController::class, 'viewProject'])->name('admin.projects.view');
+
 
 
 

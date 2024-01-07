@@ -178,6 +178,136 @@ class ProjectController extends Controller
     return redirect()->back()->with('success', 'Consultant removed successfully.');
 }
 
+    //all projects
+    public function allProjects()
+    {
+        $projects = Project::with('status', 'budgetcode', 'unit', 'assignments')->paginate(2);
+
+        //get consultant name and get expertise field name
+        foreach ($projects as $project) {
+            if ($project->consultant_id) {
+                $consultant = Admin::find($project->consultant_id);
+                $project->consultant_name = $consultant->name;
+            }
+
+            //get expertise field name
+            $expertiseField = ExpertiseField::find($project->expertise_field_id);
+
+            if (!$expertiseField) {
+                $project->expertise_field_name = '';
+            }
+            else{
+                $project->expertise_field_name = $expertiseField->name;
+            }
+
+
+        }
+
+        return view('admin.projects.all-projects', [
+            'projects' => $projects,
+        ]);
+    }
+
+    //open projects
+    public function openProjects()
+    {
+        $projects = Project::with('status', 'budgetcode', 'unit', 'assignments')
+        ->whereHas('status', function ($query) {
+            $query->where('code', 2);
+        })
+        ->paginate(2);
+
+        //get consultant name and get expertise field name
+        foreach ($projects as $project) {
+            if ($project->consultant_id) {
+                $consultant = Admin::find($project->consultant_id);
+                $project->consultant_name = $consultant->name;
+            }
+
+            //get expertise field name
+            $expertiseField = ExpertiseField::find($project->expertise_field_id);
+
+            if (!$expertiseField) {
+                $project->expertise_field_name = '';
+            }
+            else{
+                $project->expertise_field_name = $expertiseField->name;
+            }
+        }
+
+        return view('admin.projects.open-projects', [
+            'projects' => $projects,
+        ]);
+    }
+
+    //view project
+    public function viewProject(Project $project)
+    {
+        $expertiseField = ExpertiseField::find($project->expertise_field_id);
+
+        if (!$expertiseField) {
+            $project->expertise_field_name = '';
+        }
+        else{
+            $project->expertise_field_name = $expertiseField->name;
+        }
+
+        $consultant = Admin::find($project->consultant_id);
+
+        if (!$consultant) {
+            $project->consultant_name = '';
+        }
+        else{
+            $project->consultant_name = $consultant->name;
+        }
+
+        $status = Status::where('project_id', $project->id)->first();
+
+        $budgetcode = $project->budgetcode()->first();
+
+        $unit = $project->unit()->first();
+
+        $assignments = $project->assignments()->get();
+
+        $tranches = Tranch::where('project_id', $project->id)
+        ->with(['activities', 'activities.deliverables'])
+        ->get();
+
+                // Check if each tranch has at least one activity and each activity has at least one deliverable
+                foreach ($tranches as $tranchIndex => $tranch) {
+                    if ($tranch->activities->isEmpty()) {
+                        return redirect()->back()->with('error', 'Tranch ' . ($tranchIndex + 1) . ' has no activities.');
+                    }
+
+                    foreach ($tranch->activities as $activityIndex => $activity) {
+                        if ($activity->deliverables->isEmpty()) {
+                            return redirect()->back()->with('error', 'Activity ' . ($activityIndex + 1) . ' in tranch ' . ($tranchIndex + 1) . ' has no deliverables.');
+                        }
+                    }
+                }
+
+        $total_budget = $tranches->sum('budget');
+
+        //get min date and max date from tranches
+
+        $min_date = $tranches->min('date_from');
+        $max_date = $tranches->max('date_to');
+
+        $period = $min_date . ' - ' . $max_date;
+
+        return view('admin.projects.view-project', [
+            'project' => $project,
+            'status' => $status,
+            'budgetcode' => $budgetcode,
+            'unit' => $unit,
+            'assignments' => $assignments,
+            'tranches' => $tranches,
+            'total_budget' => $total_budget,
+            'period' => $period,
+        ]);
+    }
+
+
     public function setupSummary($project_id)
     {
 
@@ -229,7 +359,6 @@ class ProjectController extends Controller
         $max_date = $tranches->max('date_to');
 
         $period = $min_date . ' - ' . $max_date;
-
 
 
         return view('admin.projects.setup-summary', [

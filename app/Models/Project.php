@@ -38,10 +38,10 @@ class Project extends Model
 
     public function status()
     {
-        return $this->belongsTo(Status::class);
+        return $this->hasOne(Status::class);
     }
 
-    public function assginments()
+    public function assignments()
     {
         return $this->hasMany(Assignment::class);
     }

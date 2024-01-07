@@ -43,13 +43,13 @@
                 </a>
 
                 <!-- All Open -->
-                <a class="pl-10 flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/projects/all-open">
+                <a class="pl-10 flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="{{ route('admin.projects.all') }}">
                     <x-svg.nav-all />
 
                     <span class="mx-3">All Projects</span>
                 </a>
                 <!-- All Open -->
-                <a class="pl-10 flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="/projects/all-open">
+                <a class="pl-10 flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="{{ route('admin.projects.open') }}">
                     <x-svg.nav-open />
                     <span class="mx-3">Open Projects</span>
                 </a>
