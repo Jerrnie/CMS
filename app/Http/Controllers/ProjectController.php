@@ -181,7 +181,7 @@ class ProjectController extends Controller
     //all projects
     public function allProjects()
     {
-        $projects = Project::with('status', 'budgetcode', 'unit', 'assignments')->paginate(2);
+        $projects = Project::with('status', 'budgetcode', 'unit', 'assignments', 'tranches')->paginate(2);
 
         //get consultant name and get expertise field name
         foreach ($projects as $project) {
@@ -200,8 +200,26 @@ class ProjectController extends Controller
                 $project->expertise_field_name = $expertiseField->name;
             }
 
-
         }
+
+        //get the date converage of each project lowest date of its tranches and highest date of its tranches
+        $tranches = $project->tranches;
+
+        // Find the earliest and latest dates
+        $earliestDate = $tranches->min('date_from');
+        $latestDate = $tranches->max('date_to');
+
+        // Format the dates for display
+        $dateCoverage = \Carbon\Carbon::parse($earliestDate)->format('F j, Y') . ' to ' . \Carbon\Carbon::parse($latestDate)    ->format('F j, Y');
+
+        $project->date_coverage = $dateCoverage;
+
+
+
+
+        // foreach ($projects as $project) {
+        //     dd($project->tranches);
+        // }
 
         return view('admin.projects.all-projects', [
             'projects' => $projects,

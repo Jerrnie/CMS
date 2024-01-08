@@ -133,7 +133,10 @@ Route::middleware(['auth:admin'])->group(function () {
     //open projects
     Route::get('admin/projects/open', [ProjectController::class, 'openProjects'])->name('admin.projects.open');
     //view project
-    Route::get('admin/projects/{project}', [ProjectController::class, 'viewProject'])->name('admin.projects.view');
+    Route::get('admin/projects/{project}/details', [ProjectController::class, 'viewProject'])->name('admin.projects.view');
+    //applications
+    Route::get('admin/projects/{project}/applications', [ProjectController::class, 'applications'])->name('admin.projects.applications');
+
 
 
 

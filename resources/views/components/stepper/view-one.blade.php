@@ -1,46 +1,62 @@
-<div class="pb-10 px-20">
-    <h2 class="sr-only">Steps</h2>
-
-    <div class="after:mt-4 after:block after:h-1 after:w-full after:rounded-lg after:bg-blue-300">
-      <ol class="grid grid-cols-3 text-sm font-medium text-gray-500">
-
-        {{-- detail --}}
-        <li class="relative flex justify-start text-gray-600">
-            <span class="absolute -bottom-[1.75rem] start-0 rounded-full bg-gray-600 text-white">
-                <x-svg.step-checked/>
-            </span>
-            <a href="{{ route('admin.projects.setup', ['project' => $project->id]) }}" class="hidden sm:block"> Details & Terms of Reference </a>
-            <a href="{{ route('admin.projects.setup', ['project' => $project->id]) }}">
-            <x-svg.step-detail/>
-        </a>
-        </li>
-
-
-        {{-- Terms of Reference --}}
-        <li class="relative flex justify-center text-gray-600">
-          <span class="absolute -bottom-[1.75rem] left-1/2 -translate-x-1/2 rounded-full bg-gray-600 text-white">
-            <x-svg.step-unchecked/>
-          </span>
-          <a href="{{ route('admin.projects.setup.reference', ['project' => $project->id]) }}" class="hidden sm:block"> Applicants </a>
-          <a href="{{ route('admin.projects.setup.reference', ['project' => $project->id]) }}">
-            <x-svg.step-address/>
-        </a>
-
-        </li>
-
-        {{-- checked summary --}}
-        <li class="relative flex justify-end text text-blue-600">
-          <span class="absolute -bottom-[1.75rem] end-0 rounded-full bg-blue-600 text-white">
-            <x-svg.step-checked/>
-          </span>
-          <span class="hidden sm:block"> Summary </span>
-        <x-svg.step-payment/>
-        </li>
-
-
-
-
-
-      </ol>
+<div>
+    <div class="grid grid-cols-3 gap-5 mb-4">
+      <a
+      href="{{ route('admin.projects.view', $project->id) }}"
+        class="text-white p-4 rounded bg-indigo-500 shadow-md flex items-center justify-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 mr-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+          />
+        </svg>
+        Project Info
+      </a>
+      <button
+        class="p-4 rounded bg-white text-indigo-500 shadow-md flex items-center justify-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 mr-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        Applicants
+      </button>
+      <button
+        class="p-4 rounded bg-white text-indigo-500 shadow-md flex items-center justify-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 mr-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+          />
+        </svg>
+        Outputs
+      </button>
     </div>
   </div>
