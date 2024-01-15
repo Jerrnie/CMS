@@ -55,4 +55,10 @@ class Project extends Model
     {
         return $this->belongsTo(BudgetCode::class);
     }
+
+    public function applicants()
+    {
+        return $this->hasMany(Applicant::class);
+    }
+
 }

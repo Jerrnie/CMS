@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\BasicInfoController;
 
+use App\Http\Controllers\BasicInfoController;
 use App\Http\Controllers\ExpertiseController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\ConsultantInfoController;
@@ -21,9 +22,14 @@ use App\Http\Controllers\ProfileControllerBasicInformation;
 |
 */
 
-Route::get('/', function () {
-    return view('home.home');
-})->name('home');
+// Route::get('/', function () {
+
+//     return view('home.home');
+// })->name('home');
+
+//home controller
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about', function () {
     return view('home.about');
@@ -31,13 +37,19 @@ Route::get('/about', function () {
 
 Route::get('/opportunities/all', [OpportunityController::class, 'index'])->name('opportunities.index');
 
+//get single opportunity
+Route::get('/opportunities/{opportunity}', [OpportunityController::class, 'show'])->name('opportunities.show');
+
+//apply for opportunity
+Route::post('/opportunities/{opportunity}/apply', [OpportunityController::class, 'apply'])->name('opportunities.apply');
+
+//unapply for opportunity
+Route::post('/opportunities/{opportunity}/unapply', [OpportunityController::class, 'unapply'])->name('opportunities.unapply');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/home', function () {
-    return view('home.home');
-})->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

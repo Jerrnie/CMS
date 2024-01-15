@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\AdminAuthenticationController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
@@ -136,7 +137,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('admin/projects/{project}/details', [ProjectController::class, 'viewProject'])->name('admin.projects.view');
     //applications
     Route::get('admin/projects/{project}/applications', [ProjectController::class, 'applications'])->name('admin.projects.applications');
-
+    //show applicants
+    Route::get('admin/projects/{project}/details/applicants', [ProjectController::class, 'showApplicants'])->name('admin.projects.applications.show');
+    //hire applicangt
+    Route::post('/assign/{applicant}',  [AssignmentController::class, 'assignConsultant'])->name('admin.projects.applications.assign');
 
 
 

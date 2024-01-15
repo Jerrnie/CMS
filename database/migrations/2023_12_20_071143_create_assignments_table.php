@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('requestor_id')->nullable();
-            $table->unsignedBigInteger('consulant_id')->nullable();
+            $table->unsignedBigInteger('consultant_id')->nullable(); // Corrected here
 
             $table->foreign('project_id')
                 ->references('id')
@@ -27,7 +27,7 @@ return new class extends Migration
                 ->on('admins')
                 ->onDelete('cascade');
 
-            $table->foreign('consulant_id')
+            $table->foreign('consultant_id') // And here
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
