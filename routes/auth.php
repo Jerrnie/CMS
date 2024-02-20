@@ -142,6 +142,10 @@ Route::middleware(['auth:admin'])->group(function () {
     //hire applicangt
     Route::post('/assign/{applicant}',  [AssignmentController::class, 'assignConsultant'])->name('admin.projects.applications.assign');
 
+    //cur
+
+
+
 
 
 

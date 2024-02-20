@@ -13,7 +13,7 @@
                     <div class="flex flex-wrap justify-between items-center">
                         <p class="text-gray-500">{{ Str::limit($project->description, 85, '...') }}</p>
                         <div class="mt-3 sm:mt-0 sm:ml-2">
-                            <a href="{{ route('opportunities.show', $project->id) }}" class="inline-flex items-center bg-indigo-500 text-white px-3 py-2 rounded hover:bg-indigo-600 transition-colors duration-300 ease-in-out">View
+                            <a href="{{ route('opportunities.ongoing.show', $project->id) }}" class="inline-flex items-center bg-indigo-500 text-white px-3 py-2 rounded hover:bg-indigo-600 transition-colors duration-300 ease-in-out">View
                                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                                 </svg>
@@ -26,6 +26,6 @@
     @endforeach
 </div>
 
-<div class="mt-4">
+{{-- <div class="mt-4">
     {{ $projects->links() }}
-</div>
+</div> --}}

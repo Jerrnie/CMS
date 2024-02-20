@@ -55,7 +55,6 @@
                                             <x-svg-download class="w-4 h-4" />
                                         </a>
 
-                                    {{ $file }}
                                     @endif
                                         <button type="button" data-id="{{ $row['id'] }}" class="delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center shadow-md">
                                             <x-svg-trashcan class="w-4 h-4" />

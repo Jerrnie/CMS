@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\BasicInfoController;
 use App\Http\Controllers\ExpertiseController;
 use App\Http\Controllers\OpportunityController;
@@ -35,6 +36,9 @@ Route::get('/about', function () {
     return view('home.about');
 })->name('about');
 
+//show all ongoing opportunities/project
+Route::get('/opportunities/ongoing', [OpportunityController::class, 'ongoing'])->name('opportunities.ongoing');
+
 Route::get('/opportunities/all', [OpportunityController::class, 'index'])->name('opportunities.index');
 
 //get single opportunity
@@ -45,6 +49,11 @@ Route::post('/opportunities/{opportunity}/apply', [OpportunityController::class,
 
 //unapply for opportunity
 Route::post('/opportunities/{opportunity}/unapply', [OpportunityController::class, 'unapply'])->name('opportunities.unapply');
+
+
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -67,6 +76,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/download-attachment/{attachment_id}', [SupportingDocumentController::class, 'downloadAttachment'])->name('attachment.download');
 
     Route::delete('/delete-attachment/{attachment_id}', [SupportingDocumentController::class, 'deleteAttachment'])->name('attachment.delete');
+
+    //current project
+    Route::get('/projects/current/{id}', [OpportunityController::class, 'showOngoing'])->name('opportunities.ongoing.show');
+
+    // ooprtunities/ ongoing/ show
+    Route::get('/opportunities/ongoing/{opportunity}', [OpportunityController::class, 'showOngoing'])->name('opportunities.ongoing.show');
+
+    //opportunities/ongoing/outputs
+    Route::get('/opportunities/ongoing/{opportunity}/outputs', [OpportunityController::class, 'outputs'])->name('opportunities.ongoing.outputs');
+
+    //opportunities/ongoing/outputs
+    //profile-attachement-info.store
+    Route::post('/opportunities/ongoing/{tranch}/outputs', [OpportunityController::class, 'storeOutputs'])->name('opportunities.ongoing.storeOutputs');
 
 });
 

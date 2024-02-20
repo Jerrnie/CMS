@@ -3,24 +3,42 @@
         {{-- $hasApplied --}}
         <div>
 
-            @if($project->hasApplied)
-                <form method="POST" action="{{ route('opportunities.unapply', $project->id) }}" class="flex">
-                    @csrf
-                    @method('POST')
-                    <button class="p-4 rounded bg-red-500 text-white shadow-md flex items-center justify-center w-full transform transition duration-500 ease-in-out hover:bg-red-700 hover:scale-105">
-                        Unapply
-                    </button>
-                </form>
+            {{--
+            $project->consultantStatus
+            # 1 = no consultant assigned
+            # 2 = consultant assigned but not the user
+            # 3 = consultant assigned and the user --}}
 
 
-            @else
-                <form method="POST" action="{{ route('opportunities.apply', $project->id) }}" class="flex">
-                    @csrf
-                    <button class="p-4 rounded bg-white text-indigo-500 shadow-md flex items-center justify-center transform transition duration-500 ease-in-out hover:bg-indigo-500 hover:text-white hover:scale-105 w-full">
-                        Apply For This Project
-                    </button>
-                </form>
+            @if ($project->consultantStatus == 1 || $project->consultantStatus == 4)
+                @if($project->hasApplied)
+                    <form method="POST" action="{{ route('opportunities.unapply', $project->id) }}" class="flex">
+                        @csrf
+                        @method('POST')
+                        <button class="p-4 rounded bg-red-500 text-white shadow-md flex items-center justify-center w-full transform transition duration-500 ease-in-out hover:bg-red-700 hover:scale-105">
+                            Unapply
+                        </button>
+                    </form>
+                @else
+                    <form method="POST" action="{{ route('opportunities.apply', $project->id) }}" class="flex">
+                        @csrf
+                        <button class="p-4 rounded bg-white text-indigo-500 shadow-md flex items-center justify-center transform transition duration-500 ease-in-out hover:bg-indigo-500 hover:text-white hover:scale-105 w-full">
+                            Apply For This Project
+                        </button>
+                    </form>
+                @endif
+            @elseif ($project->consultantStatus == 2)
+                <button class="p-4 rounded bg-gray-500  text-white shadow-md flex items-center justify-center w-full cursor-not-allowed" disabled>
+                    (Someone is already assigned)
+                </button>
+            @elseif ($project->consultantStatus == 3)
+                <button class="p-4 rounded bg-gray-500 text-white shadow-md flex items-center justify-center w-full cursor-not-allowed" disabled>
+                    (You have been hired for this project)
+                </button>
             @endif
+
+
+
         </div>
 
         {{-- $isBookmarked --}}
@@ -35,6 +53,15 @@
                 </button>
             @endif
         </div>
+
+        @if ($project->consultantStatus == 3)
+        <div>
+            {{-- if ($project->consultantStatus == 3) --}}
+                <a href="#" class="p-4 rounded bg-white text-indigo-500 shadow-md flex items-center justify-center transform transition duration-500 ease-in-out hover:bg-indigo-500 hover:text-white hover:scale-105 w-full">
+                    View in my Project / Output
+                </a>
+        </div>
+        @endif
 
         {{-- Outputs button --}}
         <div>
