@@ -49,7 +49,7 @@
                         <div x-show="open" class="absolute mt-2 w-48 rounded-md shadow-lg z-20">
                             <div class="rounded-md bg-white shadow-xs">
                                 <div class="py-1">
-                                    <a href="#" class="{{ request()->routeIs('ongoing-proj') ? 'text-blue-500' : 'text-gray-700'  }}  block px-4 py-2 text-sm  hover:bg-gray-100">Ongoing Project</a>
+                                    <a href="{{ route('opportunities.ongoing') }}" class="{{ request()->routeIs('ongoing-proj') ? 'text-blue-500' : 'text-gray-700'  }}  block px-4 py-2 text-sm  hover:bg-gray-100">Ongoing Project</a>
                                     <a href="#" class="{{ request()->routeIs('history') ? 'text-blue-500' : 'text-gray-700'  }}  block px-4 py-2 text-sm  hover:bg-gray-100">History</a>
                                 </div>
                             </div>

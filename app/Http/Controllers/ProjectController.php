@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Unit;
+use App\Models\User;
 use App\Models\Admin;
 use App\Models\Status;
 use App\Models\Tranch;
@@ -181,7 +182,7 @@ class ProjectController extends Controller
     //all projects
     public function allProjects()
     {
-        $projects = Project::with('status', 'budgetcode', 'unit', 'assignments')->paginate(2);
+        $projects = Project::with('status', 'budgetcode', 'unit', 'assignments', 'tranches')->paginate(2);
 
         //get consultant name and get expertise field name
         foreach ($projects as $project) {
@@ -200,8 +201,26 @@ class ProjectController extends Controller
                 $project->expertise_field_name = $expertiseField->name;
             }
 
-
         }
+
+        //get the date converage of each project lowest date of its tranches and highest date of its tranches
+        $tranches = $project->tranches;
+
+        // Find the earliest and latest dates
+        $earliestDate = $tranches->min('date_from');
+        $latestDate = $tranches->max('date_to');
+
+        // Format the dates for display
+        $dateCoverage = \Carbon\Carbon::parse($earliestDate)->format('F j, Y') . ' to ' . \Carbon\Carbon::parse($latestDate)    ->format('F j, Y');
+
+        $project->date_coverage = $dateCoverage;
+
+
+
+
+        // foreach ($projects as $project) {
+        //     dd($project->tranches);
+        // }
 
         return view('admin.projects.all-projects', [
             'projects' => $projects,
@@ -305,6 +324,43 @@ class ProjectController extends Controller
             'total_budget' => $total_budget,
             'period' => $period,
         ]);
+    }
+
+    public function showApplicants(Project $project)
+    {
+        $expertiseField = ExpertiseField::find($project->expertise_field_id);
+
+        if (!$expertiseField) {
+            $project->expertise_field_name = '';
+        }
+        else{
+            $project->expertise_field_name = $expertiseField->name;
+        }
+
+        $status = Status::where('project_id', $project->id)->first();
+
+        $budgetcode = $project->budgetcode()->first();
+
+        $unit = $project->unit()->first();
+
+        $assignment = $project->assignments()->first();
+
+        $applicants = $project->applicants()->with('user')->get();
+
+        $consultant_id = $assignment->consultant_id;
+
+        $consultant = User::where('id', $consultant_id)->first();
+
+        return view('admin.projects.view-project-applicants', [
+            'project' => $project,
+            'status' => $status,
+            'budgetcode' => $budgetcode,
+            'unit' => $unit,
+            'assignment' => $assignment,
+            'applicants' => $applicants,
+            'consultant' => $consultant,
+        ]);
+
     }
 
 
@@ -490,6 +546,7 @@ class ProjectController extends Controller
             'budgetCodes' => $budgetCodes,
         ]);
     }
+
 
     public function setupReference($project_id){
         $project = Project::find($project_id);

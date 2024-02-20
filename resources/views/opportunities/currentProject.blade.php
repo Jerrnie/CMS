@@ -1,10 +1,24 @@
-<x-admin-layout>
+<x-app-layout>
 
     <x-slot name="headerName">
-        {{ __('Reference') }}
+        {{ __('View project') }}
     </x-slot>
 
-    <x-stepper.view-one :project="$project"/>
+    {{-- <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Home Page') }}
+        </h2>
+    </x-slot> --}}
+
+    <div class="pt-8"></div>
+
+    <div class="py-4 tab-content" id="profileInfo">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+
+            <x-action-button.user-current-project :project="$project"/>
+
+        </div>
+    </div>
 
     @include('admin.projects.partials.project-title')
 
@@ -16,7 +30,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="py-4 tab-content -mt-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
@@ -60,5 +73,20 @@
     </script>
 @endif
 
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            position: "top-end",
+            title: "{{ session('error') }}",
+            showConfirmButton: false,
+            timer: 2500
+        });
+    </script>
 
-</x-admin-layout>
+@endif
+
+    </div>
+
+
+</x-app-layout>

@@ -10,15 +10,7 @@
         </h2>
     </x-slot> --}}
 
-    <div class="py-12 -mt-12">
-        <div class=" w-3/3">
-            <x-banner>
-                <x-slot name="title">Consultant Management System</x-slot>
-                <x-slot name="subtitle">Streamlining Your Consultation Services</x-slot>
-            </x-banner>
-        </div>
-    </div>
-
+{{--
     <div class="py-12 ">
         <div class="max-w-7xl mx-auto sm:px-4 lg:px-8">
             <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
@@ -45,7 +37,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <div class="py-12 ">
@@ -55,11 +47,11 @@
 
                     <header>
                         <h2 class="text-xl font-semibold text-gray-900">
-                            {{ __('Opportunities') }}
+                            {{ __('Ongoing projects') }}
                         </h2>
 
                         <p class="mt-1 text-sm text-gray-600">
-                            {{ __("Check out offers that's fitted on your qualifications") }}
+                            {{ __("Here are the projects currently in progress.") }}
                         </p>
                     </header>
 

@@ -3,7 +3,7 @@
     <div class="grid grid-cols-3 gap-5 mb-4">
       <a
       href="{{ route('admin.projects.view', $project->id) }}"
-        class="text-white p-4 rounded bg-indigo-500 shadow-md flex items-center justify-center"
+      class="p-4 rounded bg-white text-indigo-500 shadow-md flex items-center justify-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,8 @@
       </a>
       <a
       href="{{ route('admin.projects.applications.show', $project->id) }}"
-        class="p-4 rounded bg-white text-indigo-500 shadow-md flex items-center justify-center"
+      class="text-white p-4 rounded bg-indigo-500 shadow-md flex items-center justify-center"
+
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
